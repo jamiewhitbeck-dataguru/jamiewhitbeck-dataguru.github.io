@@ -18,12 +18,12 @@
 			     font-family: Calibri, sans-serif;
 			     font-size: 20pt;
 			     font-weight: bold;
-			     color: #0E2841;
+			     color: #000;;
 			   }
 			   h2 {
 			     font-family: Calibri, sans-serif;
 			     font-size: 20pt;
-			     color: black;
+			     color: #000;;
 			     margin-top: 2em;
 				 margin-bottom: 1em;
 			   }
@@ -31,60 +31,69 @@
 			     font-family: Calibri, sans-serif;
 			     font-weight: bold;
 			     font-size: 14pt;
-			     color: #0E2841;
+			     color: #000;;
 			     text-decoration: none;
 			   }
 			   a:hover {
 			     text-decoration: underline;
 			   }
-			.background {
-			     background: url('https://jamiewhitbeck-dataguru.github.io/media/Background.png') center center / cover;
-			     position: fixed;
-			     top: 0;
-			     left: 0;
-			     width: 100%;
-			     height: 100%;
-			     z-index: -1;
-			     opacity: 0.3;
-			   }
-			.content {
-			      background-color: rgba(0,0,0,0.6);
-			      padding: 0;
-			      max-width: 800px;
-			      margin: auto;
-			}
-		   .entry {
-			 margin-bottom: 2em;
+			 .background {
+			    position: fixed;
+			    top: 0;
+			    left: 0;
+			    width: 100%;
+			    height: 100%;
+			    z-index: -1;
+			    background-color: #1E90FF;
+			    background-image: url('https://raw.githubusercontent.com/jamiewhitbeck-dataguru/jamiewhitbeck-dataguru.github.io/main/media/Background.png');
+			    background-repeat: no-repeat;
+			    background-position: center top;
+			    background-size: cover;
+			    opacity: 0.3;
+			 }
+		     .content {
+			    background-color: rgba(255, 255, 255, 0.9); /* translucent white overlay behind content */
+			    padding: 2rem;
+			    max-width: 1000px;
+			    margin: 2rem auto;
+			    border-radius: 12px;
+			    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+				opacity: .7;
+		     }
+		    .entry {
+			   margin-bottom: 2em;
+		    }
+		    .nerdingout {
+			   font-family: Calibri, sans-serif;
+			   font-size: 14pt;
+			   color: #0E2841;
+			   text-decoration: none;
+			   margin-bottom: 4em;
+		    }
+		    .contact {
+			   color: #0E2841;
+			   font-family: Calibri, sans-serif;
+		    }
+		    .last-updated {
+			   font-size: 11pt;
+			   font-style: italic;
+			   color: black;
+			   margin-top: 1em;
+		    }
+		   .subtitle {
+			   font-family: "Calibri Light", Calibri, sans-serif;
+			   font-size: 12pt;
+			   color: black;
+			   margin-top: 0;
+			   margin-bottom: 2em;
 		   }
-		   .nerdingout {
-			 font-family: Calibri, sans-serif;
-			 font-size: 14pt;
-			 color: #0E2841;
-			 text-decoration: none;
-		  margin-bottom: 4em;
-		   }
-		   .contact {
-			 color: #0E2841;
-			 font-family: Calibri, sans-serif;
-		   }
-		   .last-updated {
-			 font-size: 11pt;
-			 font-style: italic;
-			 color: black;
-			 margin-top: 1em;
-		   }
-		  .subtitle {
-			font-family: "Calibri Light", Calibri, sans-serif;
-			font-size: 12pt;
-			color: black;
-			margin-top: 0;
-			margin-bottom: 2em;
-		  }
 		</style>
 	</head>
 
 	<body>
 		<div class="background"></div>
+		<div class="content">
+
 		<h1>Jamie Whitbeck – Professional Portfolio</h1>
 
 		<p>
@@ -158,7 +167,7 @@
 		<div class="nerdingout">
 			<p><strong>“Database Wizard”</strong> – a nerdcore reggaeton tribute to SQL sorcery, recursion, and Gryffindor pride.</p>
 			<audio controls>
-				<source src="https://jamiewhitbeck-dataguru.github.io/media/DatabaseWizard.mp3" type="audio/mpeg" />
+				<source src="https://raw.githubusercontent.com/jamiewhitbeck-dataguru/jamiewhitbeck-dataguru.github.io/main/media/DatabaseWizard.mp3" type="audio/mpeg" />
 				Your browser does not support the audio element.
 			</audio>
 		</div>
@@ -167,6 +176,7 @@
 		<div><a href="mailto:jamiewhitbeck-dataguru@outlook.com">jamiewhitbeck-dataguru@outlook.com</a></div>
 
 		<div class="last-updated">Last updated: <span id="lastUpdated"></span></div>
+		</div>
 	</body>
 </html>
 
