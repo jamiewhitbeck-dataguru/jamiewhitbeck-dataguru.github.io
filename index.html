@@ -16,18 +16,26 @@
 			}
 			h1 {
 				font-family: Calibri, sans-serif;
-				font-size: 26pt;
+				font-size: 32pt;
 				font-weight: bold;
-				color: white;
+				color: #559BFF;
 				text-align: center;
+				margin-bottom: 0em;
 			}
 			h2 {
 				font-family: Calibri, sans-serif;
-				font-size: 20pt;
+				font-size: 23pt;
 				font-weight: bold;
-				color: white;
+				color: #559BFF;
 				margin-top: 3em;
 				margin-bottom: 1em;
+				text-align: center;
+			}
+			titles {
+				font-family: Calibri Light, sans-serif;
+				font-size: 16pt;
+				font-weight: bold;
+				color: #559BFF;
 				text-align: center;
 			}
 			a {
@@ -56,13 +64,16 @@
 			}
 			.entry-title {
 			  font-size: 16pt;
-			  color: white;
-			  text-decoration: none;
-			}
-			.entry-title:hover {
+			  font-weight: normal;
+			  color: #73B9FF;
 			  text-decoration: underline;
 			}
+			.entry-title:hover {
+			  font-weight: bold;
+			  color: #3787FF;
+			}
 			.content {
+				font-family: Calibri Light, sans-serif;
 				background-color: rgba(0, 0, 0, 0.5);
 				padding: 1.5rem;
 				max-width: 1000px;
@@ -81,7 +92,7 @@
 			  margin-bottom: 2em;
 			  box-shadow: 8px 8px rgba(0, 0, 0, 0.5);
 			  color: white;
-			  font-family: Calibri, sans-serif;
+			  font-family: Calibri Light, sans-serif;
 			  font-size: 13.5pt;
 			  line-height: 1.35;
 			}
@@ -94,7 +105,7 @@
 			}
 			.skills .note {
 			  font-size: 13.5pt;
-			  color: white;
+			  color: #559BFF;
 			  margin-bottom: 0.75rem;
 			  text-align: center;
 			}
@@ -116,7 +127,7 @@
 			.skills .cat {
 			  font-size: 14pt;
 			  font-weight: bold;
-			  color: white;
+			  color: #559BFF;
 			  margin-top: 0.4rem;
 			  text-decoration: underline;
 			}
@@ -126,8 +137,19 @@
 			  margin-top: .5em;
 			  margin-bottom: .5em;
 			}
+			.skills .group {
+			  font-weight: bold;
+			  color: #87CDFF;
+			}
 			.contact {
-				font-family: Calibri, sans-serif;
+			  font-family: Calibri Light, sans-serif;
+			  font-weight: normal;
+			}
+			.contact a {
+			  font-family: Calibri Light, sans-serif;
+			  font-weight: normal;
+			  text-decoration: underline;
+			  color: #73B9FF;
 			}
 			.last-updated {
 				font-size: 11pt;
@@ -145,122 +167,128 @@
 			</div>
 
 			<h1>Jamie Whitbeck</h1>
-
-			<p>
-				Welcome to my portfolio. I have experience in data analysis, data engineering, data management, ETL design, and database administration. This curated selection of technical write-ups—from both
-				professional and personal projects—highlights how I think, build, and troubleshoot. Each project includes a detailed write-up. Where practical, I have included screenshots or actual code samples. Where necessary, redactions
-				were made to maintain client security and confidentiality.
-			</p>
-
-			<p>This collection is a work in progress, as I only recently began documenting my work for public consumption. I will continue updating the portfolio as more projects are written up.</p>
-			<div>All titles are clickable links.</div>
+			<titles>
+				<div>Senior Data Analyst • Data Engineer<br>ETL Engineer • Database Administrator</div>
+			</titles>
+			<br>
+			<div>
+				This portfolio showcases my approach to solving complex data challenges through real-world projects. 
+				Each case study demonstrates my technical problem-solving process, from initial analysis through implementation 
+				and optimization. Code samples and methodology details are included where possible, 
+				with appropriate redactions to protect client confidentiality.
+			</div>
+			<p>Click any project title to access the full technical documentation.</p>
 
 			<h2>Introduction</h2>
 
 			<div class="entry">
 				<a class="entry-title" href="https://raw.githubusercontent.com/jamiewhitbeck-dataguru/jamiewhitbeck-dataguru.github.io/main/docs/JamieWhitbeck_CareerTrajectory.pdf" target="_blank">Career Trajectory</a>
-				<p>I’ve grown into a versatile data professional from my early days building reports in Excel. From flat files and manual manipulation to designing SQL solutions; developing modern visualizations, predictive analytics, and ETL pipelines; and administering multi-server environments, I’ve covered the full spectrum of data engineering.</p>
-				<p>Along the way, I’ve consistently transformed environments by improving processes, optimizing systems, and delivering data solutions and insights that people didn’t even know were possible – insights that drove decisions from the staff level all the way to the C-suite.</p>
-				<p>If you want receipts, keep reading.</p>
+				<p>I've evolved from building Excel reports to architecting enterprise data solutions. My journey spans the complete data lifecycle: from SQL database design and ETL pipeline development to predictive analytics and multi-server administration.</p>
+				<p>Throughout this progression, I've consistently delivered transformative results—optimizing systems, streamlining processes, and uncovering insights that drove strategic decisions at every organizational level, from operational staff to executive leadership.</p>
+				<p>The projects below demonstrate this impact in detail.</p>
 			</div>
 
 			<h2>Selected Projects</h2>
 
 			<div class="entry">
 				<a class="entry-title" href="https://raw.githubusercontent.com/jamiewhitbeck-dataguru/jamiewhitbeck-dataguru.github.io/main/docs/JamieWhitbeck_MFAnalysis_BackorderReport.pdf" target="_blank">How One Report Rewrite Uncovered a $4M Error</a>
-				<p>
-					A project that began as a routine migration from a legacy Excel report to a modern SSRS delivery system exposed a 20-year-old flaw in the backorder calculations, which had been quietly underreporting millions in delayed shipments.
-					I identified the issue, proved the discrepancy across systems, and delivered an analysis that led to backorders being slashed in half and hundreds of satisfied customers.
-				</p>
+				<p>What started as a routine report migration from Excel to SSRS became a $4M discovery. During the rewrite, I uncovered a critical calculation flaw that had been systematically underreporting delayed shipments for two decades.</p>
+				<p>After proving the discrepancy across multiple systems, my analysis led to a multi-department effort that ultimately reduced backorders by approximately 50% ($7M) and improved customer satisfaction.</p>
 			</div>
 
 			<div class="entry">
 				<a class="entry-title" href="https://raw.githubusercontent.com/jamiewhitbeck-dataguru/jamiewhitbeck-dataguru.github.io/main/docs/JamieWhitbeck_MFAnalysis_OverstockReport.pdf" target="_blank">Transforming Overstock Reporting for Smarter Inventory Decisions</a>
-				<p>When a new WMS and ordering logic led to $5M+ in phantom overstock, I reengineered the legacy report to reflect seasonal demand, operational realities, and systemic misalignments.</p>
-				<p>The result? A strategic tool that empowered planners to stop firefighting and start optimizing.</p>
+				<p>When a new WMS implementation and masterpack ordering changes created $5M+ in phantom overstock, I reengineered the legacy Overstock Report to account for seasonal demand patterns, masterpack quantities, and cross-system parameter misalignments.</p>
+				<p>The result was a strategic tool that empowered planners to distinguish real inventory problems from system artifacts and shift from firefighting to optimization.</p>
 			</div>
 
 			<div class="entry">
 				<a class="entry-title" href="https://raw.githubusercontent.com/jamiewhitbeck-dataguru/jamiewhitbeck-dataguru.github.io/main/docs/JamieWhitbeck_Python_CaseStudy_DocumentStore.pdf" target="_blank">Document Storage Application</a>
-				<p>
-					A fun personal project and Python GUI learning exercise. A friend needed a local, searchable database for storing scraped text—no web apps, no cloud, no fuss. I built a standalone SQLite-backed desktop application with a
-					full GUI that handled input, classification, search, and display far beyond what he expected. He will never lose his documentation on canning squirrels and proper roadkill preparation again.
-				</p>
+				<p>A Python GUI learning exercise turned into a robust solution for a friend who needed local, searchable document storage—no web apps, no cloud, no fuss. I built a standalone SQLite-backed desktop application with full input, classification, search, and display functionality that exceeded his expectations.</p>
+				<p>He'll never lose his documentation on canning squirrels and proper roadkill preparation again.</p>
 			</div>
 
 			<div class="entry">
 				<a class="entry-title" href="https://raw.githubusercontent.com/jamiewhitbeck-dataguru/jamiewhitbeck-dataguru.github.io/main/docs/JamieWhitbeck_SQL_CaseStudy_ListPagination.pdf" target="_blank">Mobile Application List Pagination Procedure</a>
-				<p>
-					While supporting development of a mobile CMMS app as the Lead SQL Developer, I was asked to optimize a stored procedure used for paginating item lists. Execution times averaged 27 seconds—clearly unacceptable. I
-					discovered the developer planned to replicate this procedure over 300 times, once per module. I immediately saw the impending development and maintenance nightmares. I designed a single, dynamic, parameterized procedure
-					that eliminated the redundancy and slashed execution times to under 20 milliseconds—a 99.94% improvement.
-				</p>
+				<p>While supporting mobile CMMS development as Lead SQL Developer, I was asked to optimize a stored procedure for paginating item lists. With 27-second execution times and plans to replicate the procedure across 300+ modules, I saw both immediate performance issues and looming development nightmares.</p>
+				<p>I designed a single, dynamic, parameterized procedure that eliminated the redundancy and reduced execution times to under 20 milliseconds—a 99.94% performance improvement.</p>
 			</div>
 
 			<div class="entry">
 				<a class="entry-title" href="https://raw.githubusercontent.com/jamiewhitbeck-dataguru/jamiewhitbeck-dataguru.github.io/main/docs/JamieWhitbeck_SaaSDatabaseMigrationTool.pdf" target="_blank">Scripted SaaS Database Migration</a>
+				<p>While most companies endure all-nighters and prayer circles for SQL migrations, I automated the entire process.</p>
 				<p>
-					Most companies brace for all-nighters and prayer circles when it's time to migrate or consolidate SQL environments. I wrote a reusable stored procedure, deployed it to our container registration database, and
-					successfully migrated more than 500 databases across three legacy servers to a single SSD-powered instance in under 1 hour. With automation, linked servers, testing, and full logging, the average impact was less than 10
-					seconds per tenant.
+					Using a reusable stored procedure deployed through our container registration database, I successfully 
+					migrated 500+ databases from three legacy servers to a single beast of a machine in under one hour—with 
+					less than 10 seconds of impact per tenant. The solution used dynamically-generated SQL to create and drop 
+					linked servers, control user access, execute DB backups and restores, and update container pointers—all 
+					while providing comprehensive logging.
 				</p>
 			</div>
 
 			<div class="entry">
 				<a class="entry-title" href="https://raw.githubusercontent.com/jamiewhitbeck-dataguru/jamiewhitbeck-dataguru.github.io/main/docs/JamieWhitbeck_SQL_CaseStudy_Encryption.pdf" target="_blank">User Data Encryption</a>
 				<p>
-					As the DBA for a CMMS vendor with over 1,000 tenant databases and thousands of on-premises clients, I discovered that the "encryption" used for user credentials was laughably insecure—especially considering some clients
-					were government agencies, hospitals, and critical infrastructure organizations, many of which used our GIS module to map their assets. I built a robust, standards-compliant solution to secure all credentials, resolving a
-					gaping vulnerability before it became a real incident.
+					During a self-initiated security audit as DBA for a CMMS vendor serving 1,000+ tenant databases and thousands 
+					of on-premises clients, I discovered that user credential “encryption” was laughably inadequate. With government 
+					agencies, hospitals, and critical infrastructure organizations using our platform—many leveraging our GIS 
+					module for sensitive asset mapping—this represented a catastrophic vulnerability waiting to happen.
+				</p>
+				<p>
+						I developed a robust, standards-compliant encryption solution that secured thousands 
+						of client credentials before this vulnerability could become front-page news.
 				</p>
 			</div>
 
-			<h2>Selected Awards</h2>
+			<h2>Recognition</h2>
 
 			<div class="entry">
 				<a class="entry-title" href="https://raw.githubusercontent.com/jamiewhitbeck-dataguru/jamiewhitbeck-dataguru.github.io/main/docs/JamieWhitbeck_MFInnovatorAward.pdf" target="_blank">Innovator Award</a>
 				<p>
-					I was honored to receive the Innovator Award at Musician’s Friend for my proactive and innovative approach to reporting and problem-solving for the Inventory Planning department. The full text of the speech given at the
-					awards ceremony can be found at the above link.
+					I received an Innovator Award at Musician's Friend for my proactive approach to identifying operational 
+					inefficiencies and developing automated solutions that transformed how the Inventory Planning department 
+					worked. The award recognized my ability to listen to team challenges, investigate underlying problems, and 
+					deliver reports and processes that solved issues people didn't even realize could be automated.
 				</p>
+				<p>The full text of the award ceremony speech can be found at the above link.</p>
 			</div>
 
 
 			<section class="skills" aria-labelledby="skills-heading">
 			  <h3 id="skills-heading">Skills and Technical Stack</h3>
-			  <div class="note">Data Analysis · Data Engineering · Database Administration</div>
+			  <div class="note">Analytics • Engineering • Administration</div>
 
 			  <div class="skills-divider" role="presentation"></div>
 
 			  <div class="skills-grid">
 				<div>
 				  <p class="cat">Core SQL & Databases</p>
-				  <p><strong>Advanced SQL:</strong> Stored Procedures, Triggers, User-Defined Functions, CTEs, Query Tuning, Indexing, Optimization</p>
-				  <p><strong>Relational DBs:</strong> Microsoft SQL Server (On-prem and Azure), Oracle, MySQL, DB2, PostgreSQL</p>
-				  <p><strong>Data Warehousing:</strong> Snowflake, BigQuery, SSAS, Data Marts, Operational Data Stores</p>
+				  <p><span class="group">Advanced SQL:</span> Stored Procedures, Triggers, User-Defined Functions, CTEs, Query Tuning, Indexing, Optimization</p>
+				  <p><span class="group">Relational DBs:</span> Microsoft SQL Server (On-prem and Azure), Oracle, MySQL, DB2, PostgreSQL</p>
+				  <p><span class="group">Data Warehousing:</span> Snowflake, BigQuery, SSAS, Data Marts, Operational Data Stores</p>
 
 				  <p class="cat">ETL, Data Engineering & DataOps</p>
-				  <p><strong>ETL Tools & Platforms:</strong> SSIS, Azure Data Factory, Databricks, dbt, Python, R</p>
-				  <p><strong>ETL Practices:</strong> Pipeline Development, Migration, Data Wrangling, Cleansing, Validation, QA Testing</p>
+				  <p><span class="group">ETL Tools & Platforms:</span> SSIS, Azure Data Factory, Databricks, dbt, Python, R</p>
+				  <p><span class="group">ETL Practices:</span> Pipeline Development, Migration, Data Wrangling, Cleansing, Validation, QA Testing</p>
 
 				  <p class="cat">BI, Reporting & Analytics</p>
-				  <p><strong>Reporting:</strong> KPI Dashboards, Ad-hoc Analysis, Operational and Executive Reporting, Forecasting, Predictive Analytics</p>
-				  <p><strong>Reporting and Visualization Platforms:</strong> Tableau, Power BI, Looker, BigQuery (Analytics & ML), SSRS, Python, R</p>
+				  <p><span class="group">Reporting:</span> KPI Dashboards, Ad-hoc Analysis, Operational and Executive Reporting, Forecasting, Predictive Analytics</p>
+				  <p><span class="group">Reporting and Visualization Platforms:</span> Tableau, Power BI, Looker, BigQuery (Analytics & ML), SSRS, Python, R</p>
 				</div>
 
 				<div>
 				  <p class="cat">Data Modeling, Governance & Security</p>
-				  <p><strong>Data Architecture:</strong> Dimensional Modeling, Schema Design, Data Models, Indexing</p>
-				  <p><strong>Governance & Management:</strong> Master Data Management, Data Integrity, Compliance (SOX, PCI)</p>
-				  <p><strong>Data Security:</strong> Encryption, Access Controls, Audit Frameworks</p>
+				  <p><span class="group">Data Architecture:</span> Dimensional Modeling, Schema Design, Data Models, Indexing</p>
+				  <p><span class="group">Governance & Management:</span> Master Data Management, Data Integrity, Compliance (SOX, PCI)</p>
+				  <p><span class="group">Data Security:</span> Encryption, Access Controls, Audit Frameworks</p>
 
 				  <p class="cat">Advanced Analytics & Dev</p>
-				  <p><strong>Statistical Modeling:</strong> Forecasting, Segmentation, A/B Testing, Predictive Modeling, CAC vs LTV</p>
-				  <p><strong>Programming & Libraries:</strong> Python (NumPy, Pandas, SQLAlchemy, Matplotlib, Jupyter), R (tidyverse, DBI, odbc)</p>
+				  <p><span class="group">Statistical Modeling:</span> Forecasting, Segmentation, A/B Testing, Predictive Modeling, CAC vs LTV</p>
+				  <p><span class="group">Programming & Libraries:</span> Python (NumPy, Pandas, SQLAlchemy, Matplotlib, Jupyter), R (tidyverse, DBI, odbc)</p>
 
 				  <p class="cat">Process, Ops & Integration</p>
-				  <p><strong>Production Support:</strong> Monitoring, Incident Response, Root Cause Analysis, Disaster Recovery</p>
-				  <p><strong>DevOps:</strong> CI/CD, Version Control, Database Automation, Agile methodologies</p>
+				  <p><span class="group">Production Support:</span> Monitoring, Incident Response, Root Cause Analysis, Disaster Recovery</p>
+				  <p><span class="group">DevOps:</span> CI/CD, Version Control, Database Automation, Agile methodologies</p>
 				</div>
 			  </div>
 			  <div class="skills-divider" role="presentation"></div>
