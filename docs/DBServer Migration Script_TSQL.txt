@@ -17,11 +17,46 @@ CREATE PROCEDURE dbo.mcProd_DatabaseMove
     ,@FileSysUser nvarchar(50)
     ,@FileSysPassword nvarchar(50)
     ,@DBSelectorSQL nvarchar(2000)
-    ,@Prod bit = 1
     ,@DropOld bit = 0
   )
 AS
 BEGIN
+
+/*
+---------------------------------------------------------------------------------------------------------------------
+
+      Multi-DB migration tool
+      Purpose: Migration of databases in production environment
+      Created by: Jay
+
+
+    !!!!! ALL DATABASES MUST HAVE THE SAME SOURCE AND TARGET SERVERS !!!!!
+      Note: Multiple executions are required for multiple source or target servers
+            This limitation is by design.
+            Multi-source or multi-target capability would degrade performance and increase complexity
+            by requiring an outer cursor loop for each source/target relationship for the
+            linked server creation/drop, UNC mapping, default storage location discovery
+
+
+      Input Parameters:
+          @SourceServer - location where the DBs currently are
+          @TargetServer - location where you are moving the DBs
+          @TargetBackupUNCPath - storage location for DB backups on target server
+          @SQLUser, @SQLPassword - SQL credentials on the source/target servers - must have admin priveleges
+          @FileSysUser, @FileSysPassword - Windows credentials for filesys access - must have admin priveleges
+          @DBSelectorSQL - SQL WHERE clause to select which DBs to migrate
+              - container table aliased as c
+                  - for selection of DBs, use 'c.container_code IN (''db1'',''db2'',''db3'',...)'
+              - container_resource aliased as cr
+                  - for full server migration, use 'cr.dbserver_name = ''servername'''
+          @DropOld - 1 = drop database on source after migration, 0 = do not drop
+
+
+      Revision history:
+          IR: 6/24/2014 - Jay
+
+---------------------------------------------------------------------------------------------------------------------
+*/
 
 SET NOCOUNT ON
 
