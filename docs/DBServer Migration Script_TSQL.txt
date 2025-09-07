@@ -1,0 +1,353 @@
+USE mcRegistrationSA
+GO
+
+IF Object_ID('dbo.mcProd_DatabaseMove','P') IS NOT NULL
+  BEGIN
+    DROP PROCEDURE dbo.mcProd_DatabaseMove
+  END
+GO
+
+CREATE PROCEDURE dbo.mcProd_DatabaseMove
+  (
+    @SourceServer nvarchar(50)
+    ,@TargetServer nvarchar(50)
+    ,@TargetBackupUNCPath nvarchar(500)
+    ,@SQLUser nvarchar(50)
+    ,@SQLPassword nvarchar(50)
+    ,@FileSysUser nvarchar(50)
+    ,@FileSysPassword nvarchar(50)
+    ,@DBSelectorSQL nvarchar(2000)
+    ,@Prod bit = 1
+    ,@DropOld bit = 0
+  )
+AS
+BEGIN
+
+SET NOCOUNT ON
+
+DECLARE
+  @BackupPath nvarchar(500)
+  ,@TargetMyDataDirectory nvarchar(50)
+  ,@TargetMyLogsDirectory nvarchar(50)
+  ,@DBName varchar(50)
+  ,@container_guid nvarchar(max)
+  ,@BackupFileName nvarchar(max)
+  ,@CurrentDBStatus nvarchar(50)
+  ,@CurrentIsEnabled bit
+  ,@MoveFileString nvarchar(max)
+  ,@DBExistsSQL nvarchar(max)
+  ,@DBExistsTargetSQL nvarchar(max)
+  ,@DBCollectSQL nvarchar(max)
+  ,@DBOfflineSQL nvarchar(max)
+  ,@BackupSQL nvarchar(max)
+  ,@RestoreSQL nvarchar(max)
+  ,@DBOnlineSQL nvarchar(max)
+  ,@mczarloginSQL nvarchar(max)
+  ,@GetFilesSQL nvarchar(max)
+  ,@cmd varchar(2000)
+  ,@SourceLSName nvarchar(50)
+  ,@TargetLSName nvarchar(50)
+  ,@Identifier nvarchar(75)
+  ,@GetDirsDBName nvarchar(500)
+  ,@CreateDBCmd varchar(2000)
+  ,@GetDirsSQL nvarchar(max)
+  ,@DropDBCmd varchar(2000)
+
+SELECT
+  @BackupPath = (CASE WHEN RIGHT(@TargetBackupUNCPath,1) = '\' THEN LEFT(@TargetBackupUNCPath,(LEN(@TargetBackupUNCPath)-1)) ELSE @TargetBackupUNCPath END)
+  ,@Identifier = REPLACE(REPLACE(REPLACE(REPLACE(SysDateTime(),'.','_'),'-','_'),':','_'),' ','_')
+
+
+-- Create required linked servers
+PRINT 'Creating linked servers.'
+SELECT
+  @SourceLSName = 'DBMove_Source_' + @Identifier
+  ,@TargetLSName = 'DBMove_Target_' + @Identifier
+
+SET @cmd = 'EXEC master.dbo.sp_addlinkedserver @server = N''' + @TargetLSName + ''', @srvproduct=N'''', @provider=N''SQLOLEDB'', @datasrc=N''' + @TargetServer + ''''
+EXEC(@cmd)
+SET @cmd = 'EXEC master.dbo.sp_serveroption @server=N''' + @TargetLSName + ''', @optname=N''rpc out'', @optvalue=N''true'''
+EXEC(@cmd)
+SET @cmd = 'EXEC master.dbo.sp_addlinkedsrvlogin @rmtsrvname = N''' + @TargetLSName + ''', @locallogin = NULL , @useself = N''False'', @rmtuser = N''' + @SQLUser + ''', @rmtpassword = N''' + @SQLPassword + ''''
+EXEC(@cmd)
+SET @cmd = 'EXEC master.dbo.sp_addlinkedserver @server = N''' + @SourceLSName + ''', @srvproduct=N'''', @provider=N''SQLOLEDB'', @datasrc=N''' + @SourceServer + ''''
+EXEC(@cmd)
+SET @cmd = 'EXEC master.dbo.sp_serveroption @server=N''' + @SourceLSName + ''', @optname=N''rpc out'', @optvalue=N''true'''
+EXEC(@cmd)
+SET @cmd = 'EXEC master.dbo.sp_addlinkedsrvlogin @rmtsrvname = N''' + @SourceLSName + ''', @locallogin = NULL , @useself = N''False'', @rmtuser = N''' + @SQLUser + ''', @rmtpassword = N''' + @SQLPassword + ''''
+
+
+-- Map network location on source SQL server for backup storage
+DECLARE @NetMapResults TABLE (Results nvarchar(max))
+SET @cmd = 'EXEC [' + @SourceLSName + '].master..xp_cmdshell ''net use "' + @BackupPath + '" ' + @FileSysPassword + ' /user:' + @FileSysUser + ''''
+PRINT 'Attempting to map network path on source server.'
+  BEGIN TRY
+    INSERT INTO @NetMapResults (Results) EXEC(@cmd)
+  END TRY
+  BEGIN CATCH   -- Catch will not catch errors returned during processing of xp_cmdshell - only catches on xp_cmdshell failure to execute - break process here if this happens
+  PRINT 'Unable to map network path due to failure to execute xp_cmdshell on ' + @SourceServer + '.  Process terminated.'
+  GOTO ENDPROCESS
+  END CATCH
+
+  -- Now we catch any errors returned by the net use command (successful xp_cmdshell execution with failure to map)
+  IF (SELECT COUNT(*) FROM @NetMapResults WHERE Results like '%success%') = 0 OR (SELECT COUNT(*) FROM @NetMapResults WHERE Results like '%error%') > 0
+    BEGIN
+      -- this could process based on specific errors, but for now we'll just attempt to delete and remap regardless of the error
+      PRINT 'Failed to map ' + @BackupPath + ' on ' + @SourceServer + '.'
+            + CHAR(10) + 'Attempting to delete any existing mapping to ' + @BackupPath + '.'
+      SET @cmd = 'EXEC [' + @SourceLSName + '].master..xp_cmdshell ''net use "' + @BackupPath + '" /DELETE'''
+      EXEC(@cmd)
+      PRINT 'Trying again to map network path.'
+      SET @cmd = 'EXEC [' + @SourceLSName + '].master..xp_cmdshell ''net use "' + @BackupPath + '" ' + @FileSysPassword + ' /user:' + @FileSysUser + ''''
+      -- Clear results from first attempt
+      DELETE FROM @NetMapResults
+      INSERT INTO @NetMapResults EXEC(@cmd)
+
+      -- Did we succeed this time?
+      IF (SELECT COUNT(*) FROM @NetMapResults WHERE Results like '%success%') = 0 OR (SELECT COUNT(*) FROM @NetMapResults WHERE Results like '%error%') > 0
+        BEGIN
+          PRINT 'Failed to map ' + @BackupPath + ' on ' + @SourceServer + '.  Process terminated.'
+          GOTO ENDPROCESS
+        END
+    END
+PRINT 'Network location successfully mapped.'
+
+
+-- Map network location on target SQL server for backup retrieval
+-- Clear results from mapping on source
+DELETE FROM @NetMapResults
+SET @cmd = 'EXEC [' + @TargetLSName + '].master..xp_cmdshell ''net use "' + @BackupPath + '" ' + @FileSysPassword + ' /user:' + @FileSysUser + ''''
+PRINT 'Attempting to map network path on target server.'
+  BEGIN TRY
+    INSERT INTO @NetMapResults (Results) EXEC(@cmd)
+  END TRY
+  BEGIN CATCH   -- Catch will not catch errors returned during processing of xp_cmdshell - only catches on xp_cmdshell failure to execute - break process here if this happens
+  PRINT 'Unable to map network path due to failure to execute xp_cmdshell on ' + @TargetServer + '.  Process terminated.'
+  GOTO ENDPROCESS
+  END CATCH
+
+  -- Now we catch any errors returned by the net use command (successful xp_cmdshell execution with failure to map)
+  IF (SELECT COUNT(*) FROM @NetMapResults WHERE Results like '%success%') = 0 OR (SELECT COUNT(*) FROM @NetMapResults WHERE Results like '%error%') > 0
+    BEGIN
+      -- this could process based on specific errors, but for now we'll just attempt to delete and remap regardless of the error
+      PRINT 'Failed to map ' + @BackupPath + ' on ' + @TargetServer + '.'
+            + CHAR(10) + 'Attempting to delete any existing mapping to ' + @BackupPath + '.'
+      SET @cmd = 'EXEC [' + @TargetLSName + '].master..xp_cmdshell ''net use "' + @BackupPath + '" /DELETE'''
+      EXEC(@cmd)
+      PRINT 'Trying again to map network path.'
+      SET @cmd = 'EXEC [' + @TargetLSName + '].master..xp_cmdshell ''net use "' + @BackupPath + '" ' + @FileSysPassword + ' /user:' + @FileSysUser + ''''
+      -- Clear results from first attempt
+      DELETE FROM @NetMapResults
+      INSERT INTO @NetMapResults EXEC(@cmd)
+
+      -- Did we succeed this time?
+      IF (SELECT COUNT(*) FROM @NetMapResults WHERE Results like '%success%') = 0 OR (SELECT COUNT(*) FROM @NetMapResults WHERE Results like '%error%') > 0
+        BEGIN
+          PRINT 'Failed to map ' + @BackupPath + ' on ' + @TargetServer + '.  Process terminated.'
+          GOTO ENDPROCESS
+        END
+    END
+PRINT 'Network location successfully mapped.'
+
+
+-- Get target server default data and log locations
+PRINT 'Getting target server default data and log locations.'
+SELECT @GetDirsDBName = 'DBMove_GetDirs_' + @Identifier
+
+SET @CreateDBCmd = 'CREATE DATABASE ' + @GetDirsDBName
+SET @cmd = 'EXEC [' + @TargetLSName + '].master..sp_executesql N''' + @CreateDBCmd + ''''
+EXEC(@cmd)
+
+SET @GetDirsSQL = REPLACE(
+'SELECT @TargetMyDataDirectory = DataDir, @TargetMyLogsDirectory = LogDir
+  FROM OpenQuery(TARGETLINKEDSERVER,''
+SELECT DataDir = (SELECT DataDir = LEFT(mf.physical_name,(len(mf.physical_name)-(CHARINDEX(''''\'''',REVERSE(mf.physical_name),0)-1)))
+  FROM sys.master_files mf
+  INNER JOIN sys.databases d
+    ON    mf.database_id = d.database_id
+  WHERE d.name = ''''' + @GetDirsDBName + '''''
+    AND mf.[type] = 0)
+,LogDir = (SELECT LogDir = LEFT(mf.physical_name,(len(mf.physical_name)-(CHARINDEX(''''\'''',REVERSE(mf.physical_name),0)-1)))
+  FROM sys.master_files mf
+  INNER JOIN sys.databases d
+    ON    mf.database_id = d.database_id
+  WHERE d.name = ''''' + @GetDirsDBName + '''''
+    AND mf.[type] = 1)
+'') AS A','TARGETLINKEDSERVER',@TargetLSName)
+PRINT 'Getting values.'
+
+EXEC sp_executesql @GetDirsSQL, N'@TargetMyDataDirectory nvarchar(500) OUTPUT, @TargetMyLogsDirectory nvarchar(500) OUTPUT', @TargetMyDataDirectory OUTPUT, @TargetMyLogsDirectory OUTPUT
+
+
+SET @DropDBCmd = 'DROP DATABASE ' + @GetDirsDBName
+SET @cmd = 'EXEC [' + @TargetLSName + '].master..sp_executesql N''' + @DropDBCmd + ''''
+EXEC(@cmd)
+
+-- strip any backslashes from end of paths if they exist
+SELECT
+  @TargetMyDataDirectory = (CASE WHEN RIGHT(@TargetMyDataDirectory,1) = '\' THEN LEFT(@TargetMyDataDirectory,(LEN(@TargetMyDataDirectory)-1)) ELSE @TargetMyDataDirectory END)
+  ,@TargetMyLogsDirectory = (CASE WHEN RIGHT(@TargetMyLogsDirectory,1) = '\' THEN LEFT(@TargetMyLogsDirectory,(LEN(@TargetMyLogsDirectory)-1)) ELSE @TargetMyLogsDirectory END)
+
+
+-- Get DBs
+PRINT 'Collecting database list.'
+DECLARE @DBList TABLE (DBName nvarchar(50), container_guid uniqueidentifier, db_status nvarchar(50), is_enabled bit)
+
+SET @DBCollectSQL = '
+      SELECT
+          DBName = LTrim(RTrim(c.container_type_code)) + LTrim(RTrim(c.container_code))
+          ,container_guid = c.container_guid
+          ,db_status = cr.db_status
+          ,is_enabled = cr.is_enabled
+	      FROM container c
+	      INNER JOIN container_resource cr
+          ON  c.container_guid = cr.container_guid
+        WHERE cr.dbserver_name = ''' + @SourceServer + '''
+         AND ' + @DBSelectorSQL + ''
+
+INSERT INTO @DBList (DBName, container_guid, db_status, is_enabled)
+  EXEC(@DBCollectSQL)
+
+DECLARE DBCursor CURSOR STATIC FOR
+  SELECT DBName, container_guid, db_status, is_enabled
+    FROM @DBList
+
+OPEN DBCursor
+FETCH NEXT FROM DBCursor INTO @DBName, @container_guid, @CurrentDBStatus, @CurrentIsEnabled
+
+WHILE @@FETCH_STATUS = 0
+  BEGIN
+    PRINT CHAR(10) + '_________________________________________________________________________________________________________________________' + CHAR(10) + 'Starting move of ' + @DBName + '.'
+    -- Get the backup file name, get database file names in move string
+
+    SET @GetFilesSQL = REPLACE(
+    'SELECT
+        @BackupFileName = BackupFileName
+        ,@MoveFileString = MoveFileString
+      FROM OpenQuery([SOURCELINKEDSERVER],''
+          SELECT
+              BackupFileName = ''''' + @DBName + '_MIGRATION ' + @Identifier + '.bak''''
+              ,MoveFileString =     (SELECT DISTINCT STUFF((
+                      SELECT '''',MOVE '''''''''''' + mf.name + '''''''''''' TO '''''''''''' + 
+                          (CASE
+                              WHEN mf.[type] = 0
+                                THEN ''''' + @TargetMyDataDirectory + '''''
+                              WHEN mf.[type] = 1
+                                THEN ''''' + @TargetMyLogsDirectory + '''''
+                            END)
+                            + ''''\'''' + SUBSTRING(mf.physical_name,(len(mf.physical_name)-(CHARINDEX(''''\'''',REVERSE(mf.physical_name),0)-2)),(len(mf.physical_name)-(CHARINDEX(''''\'''',REVERSE(mf.physical_name),0)-2))) + CHAR(39) 
+                      FROM master.sys.master_files mf
+                      WHERE mf.database_id = mf2.database_id
+                      ORDER BY mf.file_id ASC
+                    FOR XML PATH('''''''')),1,1,'''''''') AS A
+                    FROM master.sys.master_files mf2
+                    where d.database_id = mf2.database_id
+                  )
+                FROM master.sys.databases d
+                WHERE d.name = ''''' + @DBName + ''''''') AS A'
+    ,'SOURCELINKEDSERVER',@SourceLSName)
+
+    EXEC sp_executesql @GetFilesSQL, N'@BackupFileName nvarchar(max) OUTPUT, @MoveFileString nvarchar(max) OUTPUT', @BackupFileName OUTPUT, @MoveFileString OUTPUT
+
+    -- Build SQL strings to set offline, backup, restore, set online, attach mczar service account
+    SELECT
+        @DBExistsSQL = REPLACE('SELECT Ex FROM OpenQuery([SOURCELINKEDSERVER],''SELECT Ex = 1 FROM msdb.sys.databases WHERE name = ''''' + @DBName + ''''''') cr','SOURCELINKEDSERVER',@SourceLSName)
+        ,@DBOfflineSQL = 'UPDATE cr WITH(RowLock) SET db_status = ''PHANTOM'', is_enabled = 0 FROM container_resource cr WHERE container_guid = ''' + @container_guid + '''; UPDATE session WITH(RowLock) SET active_license = 0 WHERE container_guid = ''' + @container_guid + ''''
+        ,@DBOnlineSQL = 'UPDATE cr WITH(RowLock) SET db_status = ''' + @CurrentDBStatus + ''', is_enabled = ' + CAST(@CurrentIsEnabled as nvarchar(max)) + ', dbserver_name = ''' + @TargetServer + ''' FROM container_resource cr WHERE container_guid = ''' + @container_guid + ''''
+        ,@BackupSQL = 'BACKUP DATABASE ' + @DBName + ' TO  DISK = ''' + @BackupPath + '\' + @BackupFileName + ''' WITH NOFORMAT, NOINIT,  NAME = ''' + @DBName + '-Database Migration Backup'''
+        ,@RestoreSQL = 'RESTORE DATABASE ' + @DBName + ' FROM  DISK = ''' + @BackupPath + '\' + @BackupFileName + ''' WITH ' + @MoveFileString
+        ,@mczarloginSQL = @DBname + '..sp_change_users_login auto_fix,mczar'
+        ,@DBExistsTargetSQL = REPLACE('SELECT Ex FROM OpenQuery([TARGETLINKEDSERVER],''SELECT Ex = 1 FROM msdb.sys.databases WHERE name = ''''' + @DBName + ''''''') cr','TARGETLINKEDSERVER',@TargetLSName)
+
+    --First check if the database exists on the target server
+    DECLARE @DBCheck TABLE (Ex bit)
+    INSERT INTO @DBCheck EXEC(@DBExistsTargetSQL)
+
+    IF @@ROWCOUNT > 0   -- DATABASE ALREADY EXISTS AT TARGET - BREAK PROCESS ON THIS DB
+      BEGIN
+        PRINT 'Database ' + @DBName + ' already exists on target server.  Database not moved.'
+        GOTO NEXTDB
+      END
+
+    -- Check that the database exists on source server
+    INSERT INTO @DBCheck
+      EXEC(@DBExistsSql)
+
+    IF @@ROWCOUNT > 0     -- DATABASE EXISTS
+      BEGIN
+        -- disable MCAgent processing and user access
+          PRINT 'Disabling MCAgent and user access.'
+          EXEC(@DBOfflineSQL)
+
+        -- backup database to target filesys
+          PRINT CHAR(10) + 'Backing up ' + @DBName + ' from ' + @SourceServer + '.'
+          SET @cmd = 'SQLCMD -S ' + @SourceServer + ' -U ' + @SQLUser + ' -P ' + @SQLPassword + ' -Q "' + @BackupSQL + '"'
+          EXEC xp_cmdshell @cmd
+
+        -- restore database at target and reattach mczar
+          PRINT CHAR(10) + 'Restoring ' + @DBName + ' on ' + @TargetServer + '.'
+          SET @cmd = 'SQLCMD -S ' + @TargetServer + ' -U ' + @SQLUser + ' -P ' + @SQLPassword + ' -Q "' + @RestoreSQL + '"'
+          EXEC xp_cmdshell @cmd
+
+          PRINT 'Connecting mczar account.'
+          SET @cmd = 'SQLCMD -S ' + @TargetServer + ' -U ' + @SQLUser + ' -P ' + @SQLPassword + ' -Q "' + @mczarloginSQL+ '"'
+          EXEC xp_cmdshell @cmd
+
+        -- verify that the database exists and is accessible by the mczar account
+          SET @cmd = 'SELECT * FROM [' + @TargetLSName + '].' + @DBName + '.dbo._schema'
+          BEGIN TRY
+            EXEC(@cmd)
+          END TRY
+          BEGIN CATCH
+            -- Database not accessible - re-enable in original location.
+            PRINT 'Unable to access database: ' + @DBName + '. Re-enabling on ' + @SourceServer + '.'
+            SET @DBOnlineSQL = 'UPDATE cr WITH(RowLock) SET db_status = ''' + @CurrentDBStatus + ''', is_enabled = ' + CAST(@CurrentIsEnabled as nvarchar(max)) + ' FROM container_resource cr WHERE container_guid = ''' + @container_guid + ''''
+            EXEC(@DBOnlineSQL)
+            GOTO NEXTDB
+          END CATCH
+
+          -- Database accessible - update container pointer and reset to original status
+          PRINT CHAR(10) + 'Resetting ' + @DBName + ' status.'
+          EXEC(@DBOnlineSQL)
+          IF @DropOld = 1
+            BEGIN
+              PRINT 'Dropping ' + @DBName + ' on ' + @SourceServer + '.'
+              -- drop database without removing backup history
+              SET @cmd = 'EXEC [' + @SourceLSName + '].master..sp_executesql N''ALTER DATABASE ' + @DBName + ' SET SINGLE_USER WITH ROLLBACK IMMEDIATE; DROP DATABASE ' + @DBName + ''''
+              EXEC(@cmd)
+            END
+      END
+    ELSE     -- Source DB does not exist
+      BEGIN
+        PRINT 'Unable to find database ' + @DBName + ' on ' + @SourceServer + '.'
+        GOTO NEXTDB
+      END
+    PRINT 'Database successfully moved.'
+    NEXTDB:
+    PRINT 'Process complete for ' + @DBName + '.' + CHAR(10) + '_________________________________________________________________________________________________________________________' 
+    FETCH NEXT FROM DBCursor INTO @DBName, @container_guid, @CurrentDBStatus, @CurrentIsEnabled
+  END
+
+CLOSE DBCursor
+DEALLOCATE DBCursor
+
+-- remove network mapping
+PRINT 'Attempting to delete network mapping on source server.'
+  SET @cmd = 'EXEC [' + @SourceLSName + '].master..xp_cmdshell ''net use "' + @BackupPath + '" /DELETE'''
+  EXEC(@cmd)
+PRINT 'Attempting to delete network mapping on target server.'
+  SET @cmd = 'EXEC [' + @TargetLSName + '].master..xp_cmdshell ''net use "' + @BackupPath + '" /DELETE'''
+  EXEC(@cmd)
+
+ENDPROCESS:
+
+-- remove linked servers
+PRINT 'Removing linked servers.'
+SET @cmd = 'EXEC master.dbo.sp_dropserver @server=N''' + @TargetLSName + ''', @droplogins=''droplogins'''
+EXEC(@cmd)
+SET @cmd = 'EXEC master.dbo.sp_dropserver @server=N''' + @SourceLSName + ''', @droplogins=''droplogins'''
+EXEC(@cmd)
+
+END
+;
+GO
