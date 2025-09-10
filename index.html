@@ -18,7 +18,7 @@
 				font-family: Calibri, sans-serif;
 				font-size: 32pt;
 				font-weight: bold;
-				color: #559BFF;
+				color: #7DFF78;
 				text-align: center;
 				margin-top: 0em;
 				margin-bottom: 0em;
@@ -27,8 +27,10 @@
 				font-family: Calibri, sans-serif;
 				font-size: 23pt;
 				font-weight: bold;
-				color: #559BFF;
+				color: #66B2FF;
 				text-align: center;
+				margin-top: .5em;
+				margin-bottom: .25em;
 			}
 			a {
 				font-family: Calibri, sans-serif;
@@ -39,6 +41,13 @@
 			}
 			a:hover {
 				text-decoration: underline;
+			}
+			.clickinfo {
+				color: #FAC87D;
+				font-size: 14pt;
+				font-weight: bold;
+				text-align: center;
+				margin-top: .5em;
 			}
 			.background {
 				position: fixed;
@@ -55,92 +64,96 @@
 				opacity: 0.45;
 			}
 			.entry-title {
-			  font-size: 18pt;
-			  font-weight: normal;
-			  color: #559BFF;
-			  text-decoration: underline;
+				font-size: 18pt;
+				font-weight: normal;
+				color: #66B2FF;
+				text-decoration: underline;
+				display: inline-block;
+				transition: transform 0.25s ease, color 0.25s ease;
+				will-change: transform, color;
 			}
 			.entry-title:hover {
-			  color: #FFFF64;
+				color: #7DFF78;
+				transform: scale(1.05);
 			}
 			.content {
 				font-family: Calibri Light, sans-serif;
-				background-color: rgba(0, 0, 0, 0.5);
+				background-color: rgba(0, 0, 0, 0.65);
 				padding: 1.5rem;
 				max-width: 1000px;
 				margin: 2rem auto;
 				border-radius: 16px;
-				box-shadow: 15px 15px rgba(0, 0, 0, 0.65);
+				box-shadow: 15px 15px rgba(0, 0, 0, 0.75);
 			}
 			.entry {
 				margin-bottom: 2em;
 			}
 			.skills {
-			  background-color: rgba(0, 0, 0, 0.35);
-			  border-radius: 12px;
-			  padding: 1rem 1.25rem;
-			  margin-top: 5rem;
-			  margin-bottom: 2em;
-			  box-shadow: 8px 8px rgba(0, 0, 0, 0.5);
-			  color: white;
-			  font-family: Calibri Light, sans-serif;
-			  font-size: 13.5pt;
-			  line-height: 1.35;
+				background-color: rgba(0, 0, 0, 0.25);
+				border-radius: 12px;
+				padding: 1rem 1.25rem;
+				margin-top: 5rem;
+				margin-bottom: 2em;
+				box-shadow: 8px 8px rgba(0, 0, 0, 0.5);
+				color: white;
+				font-family: Calibri Light, sans-serif;
+				font-size: 13.5pt;
+				line-height: 1.35;
 			}
 			.skills h3 {
-			  font-size: 18pt;
-			  color: white;
-			  margin: 0 0 0.5rem 0;
-			  font-weight: bold;
-			  text-align: center;
+				font-size: 18pt;
+				color: white;
+				margin: 0 0 0.5rem 0;
+				font-weight: bold;
+				text-align: center;
 			}
 			.skills .note {
-			  font-size: 13.5pt;
-			  color: #559BFF;
-			  margin-bottom: 0.75rem;
-			  text-align: center;
+				font-size: 13.5pt;
+				color: #66B2FF;
+				margin-bottom: 0.75rem;
+				text-align: center;
 			}
 			.skills-grid {
-			  display: grid;
-			  grid-template-columns: 1fr;
-			  gap: 0.5rem 1.25rem;
+				display: grid;
+				grid-template-columns: 1fr;
+				gap: 0.5rem 1.25rem;
 			}
 			/* two-column on wider screens */
 			@media (min-width: 760px) {
-			  .skills-grid {
+			.skills-grid {
 				grid-template-columns: 1fr 1fr;
-			  }
+			}
 			}
 			.skills p {
-			  margin: 0 0 0.4rem 0;
-			  padding: 0;
+				margin: 0 0 0.4rem 0;
+				padding: 0;
 			}
 			.skills .cat {
-			  font-size: 14pt;
-			  font-weight: bold;
-			  color: #559BFF;
-			  margin-top: 0.4rem;
-			  text-decoration: underline;
+				font-size: 14pt;
+				font-weight: bold;
+				color: #66B2FF;
+				margin-top: 0.4rem;
+				text-decoration: underline;
 			}
 			.skills-divider {
-			  height: 1px;
-			  background: rgba(255,255,255,.5);
-			  margin-top: .5em;
-			  margin-bottom: .5em;
+				height: 1px;
+				background: rgba(255,255,255,.5);
+				margin-top: .5em;
+				margin-bottom: .5em;
 			}
 			.skills .group {
-			  font-weight: bold;
-			  color: #87CDFF;
+				font-weight: bold;
+				color: #87CDFF;
 			}
 			.contact {
-			  font-family: Calibri Light, sans-serif;
-			  font-weight: normal;
+				font-family: Calibri Light, sans-serif;
+				font-weight: normal;
 			}
 			.contact a {
-			  font-family: Calibri Light, sans-serif;
-			  font-weight: normal;
-			  text-decoration: underline;
-			  color: #73B9FF;
+				font-family: Calibri Light, sans-serif;
+				font-weight: normal;
+				text-decoration: underline;
+				color: #73B9FF;
 			}
 			.contact a:hover {
 				color: #FFFF64;
@@ -187,12 +200,14 @@
 					initial analysis through implementation. Code samples and methodology details are included where possible, 
 					with appropriate redactions to protect client confidentiality.
 				</p>
-				<p><strong>Click any project title to access the full technical documentation.</strong></p>
 			</div>
 
 			<br>
 
 			<h2>Selected Projects</h2>
+
+			<div class="clickinfo">Click any title to access full technical documentation.</div>
+			<br>
 
 			<div class="entry">
 				<a class="entry-title" href="https://raw.githubusercontent.com/jamiewhitbeck-dataguru/jamiewhitbeck-dataguru.github.io/main/docs/JamieWhitbeck_SaaSInfrastructureModernization.pdf" target="_blank">SaaS Infrastructure Modernization</a>
@@ -234,8 +249,8 @@
 					module for sensitive asset mapping—this represented a catastrophic vulnerability waiting to happen.
 				</p>
 				<p>
-						I developed a robust, standards-compliant encryption solution that secured thousands 
-						of client credentials before this vulnerability could become front-page news.
+					I developed a robust, standards-compliant encryption solution that secured thousands 
+					of client credentials before this vulnerability could become front-page news.
 				</p>
 			</div>
 
@@ -281,50 +296,51 @@
 					worked. The award recognized my ability to listen to team challenges, investigate underlying problems, and 
 					deliver reports and processes that solved issues people didn't even realize could be automated.
 				</p>
-				<p>The full text of the award ceremony speech can be found at the above link.</p>
+
+				<div class="clickinfo">Click the title for the full text of the award ceremony speech.</div>
 			</div>
 
 
 			<section class="skills" aria-labelledby="skills-heading">
-			  <h3 id="skills-heading">Skills and Technical Stack</h3>
-			  <div class="note">Analytics • Engineering • Administration</div>
+			<h3 id="skills-heading">Skills and Technical Stack</h3>
+			<div class="note">Analytics • Engineering • Administration</div>
 
-			  <div class="skills-divider" role="presentation"></div>
+			<div class="skills-divider" role="presentation"></div>
 
-			  <div class="skills-grid">
+			<div class="skills-grid">
 				<div>
-				  <p class="cat">Data Storage Engines</p>
-				  <p><span class="group">Relational DBs:</span> Microsoft SQL Server (On-prem and Azure), Oracle, MySQL, DB2, PostgreSQL</p>
-				  <p><span class="group">Data Warehousing:</span> Snowflake, BigQuery, Databricks, MongoDB, SSAS, Data Marts, Operational Data Stores</p>
+				<p class="cat">Data Storage Engines</p>
+				<p><span class="group">Relational DBs:</span> Microsoft SQL Server (On-prem and Azure), Oracle, MySQL, DB2, PostgreSQL</p>
+				<p><span class="group">Data Warehousing:</span> Snowflake, BigQuery, Databricks, MongoDB, SSAS, Data Marts, Operational Data Stores</p>
 
-				  <p class="cat">BI, Reporting, & Analytics</p>
-				  <p><span class="group">Reporting and Visualization Platforms:</span> Tableau, Power BI, Looker, SSRS, Python, R</p>
-				  <p><span class="group">Reporting:</span> KPI Dashboards, Ad-hoc Analysis, Operational and Executive Reporting, Forecasting, Predictive Analytics</p>
-				  <p><span class="group">Statistical Modeling:</span> Forecasting, Segmentation, A/B Testing, Predictive Modeling</p>
+				<p class="cat">BI, Reporting, & Analytics</p>
+				<p><span class="group">Reporting and Visualization Platforms:</span> Tableau, Power BI, Looker, SSRS, Python, R</p>
+				<p><span class="group">Reporting:</span> KPI Dashboards, Ad-hoc Analysis, Operational and Executive Reporting, Forecasting, Predictive Analytics</p>
+				<p><span class="group">Statistical Modeling:</span> Forecasting, Segmentation, A/B Testing, Predictive Modeling</p>
 
-				  <p class="cat">ETL and Integration</p>
-				  <p><span class="group">ETL Tools:</span> SSIS, Azure Data Factory, Databricks, dbt, Python, R</p>
-				  <p><span class="group">ETL Practices:</span> Pipeline Development, Migration, Data Wrangling, Cleansing, Validation, QA Testing</p>
-				  <p><span class="group">API Integration:</span> RESTful API Design, JSON Consumption</p>
+				<p class="cat">ETL and Integration</p>
+				<p><span class="group">ETL Tools:</span> SSIS, Azure Data Factory, Databricks, dbt, Python, R</p>
+				<p><span class="group">ETL Practices:</span> Pipeline Development, Migration, Data Wrangling, Cleansing, Validation, QA Testing</p>
+				<p><span class="group">API Integration:</span> RESTful API Design, JSON Consumption</p>
 				</div>
 
 				<div>
-				  <p class="cat">Data Modeling, Governance & Security</p>
-				  <p><span class="group">Data Architecture:</span> Dimensional Modeling, Schema Design, Data Models, Indexing</p>
-				  <p><span class="group">Governance & Management:</span> Master Data Management, Data Integrity, Compliance</p>
-				  <p><span class="group">Data Security:</span> Encryption, Access Controls, Audit Frameworks</p>
+				<p class="cat">Data Modeling, Governance & Security</p>
+				<p><span class="group">Data Architecture:</span> Dimensional Modeling, Schema Design, Data Models, Indexing</p>
+				<p><span class="group">Governance & Management:</span> Master Data Management, Data Integrity, Compliance</p>
+				<p><span class="group">Data Security:</span> Encryption, Access Controls, Audit Frameworks</p>
 
-				  <p class="cat">Languages</p>
-				  <p><span class="group">SQL & Analytics:</span> T-SQL, PL/SQL, PL/pgSQL, ANSI SQL, NoSQL, DAX, MDX</p>
-				  <p><span class="group">Advanced SQL:</span> Stored Procedures, Triggers, UDFs, CTEs, Query Tuning, Indexing, Optimization</p>
-				  <p><span class="group">Programming & Libraries:</span> Python (NumPy, Pandas, SQLAlchemy, Matplotlib, Jupyter), R (tidyverse, DBI, odbc), JavaScript</p>
+				<p class="cat">Languages</p>
+				<p><span class="group">SQL & Analytics:</span> T-SQL, PL/SQL, PL/pgSQL, ANSI SQL, NoSQL, DAX, MDX</p>
+				<p><span class="group">Advanced SQL:</span> Stored Procedures, Triggers, UDFs, CTEs, Query Tuning, Indexing, Optimization</p>
+				<p><span class="group">Programming & Libraries:</span> Python (NumPy, Pandas, SQLAlchemy, Matplotlib, Jupyter), R (tidyverse, DBI, odbc), JavaScript</p>
 
-				  <p class="cat">DevOps & Production Support</p>
-				  <p><span class="group">DevOps:</span> CI/CD, Version Control, Database Automation, Agile methodologies</p>
-				  <p><span class="group">Production Support:</span> Monitoring, Incident Response, Root Cause Analysis, Disaster Recovery</p>
+				<p class="cat">DevOps & Production Support</p>
+				<p><span class="group">DevOps:</span> CI/CD, Version Control, Database Automation, Agile methodologies</p>
+				<p><span class="group">Production Support:</span> Monitoring, Incident Response, Root Cause Analysis, Disaster Recovery</p>
 				</div>
-			  </div>
-			  <div class="skills-divider" role="presentation"></div>
+			</div>
+			<div class="skills-divider" role="presentation"></div>
 			</section>
 
 			<div class="contact">
