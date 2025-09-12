@@ -107,12 +107,6 @@
 				font-weight: bold;
 				text-align: center;
 			}
-			.skills .note {
-				font-size: 13.5pt;
-				color: #66B2FF;
-				margin-bottom: 0.75rem;
-				text-align: center;
-			}
 			.skills-grid {
 				display: grid;
 				grid-template-columns: 1fr;
@@ -120,19 +114,20 @@
 			}
 			/* two-column on wider screens */
 			@media (min-width: 760px) {
-			.skills-grid {
-				grid-template-columns: 1fr 1fr;
-			}
+				.skills-grid {
+					grid-template-columns: 1fr 1fr;
+					gap: .5rem 1.75rem;
+ 				}
 			}
 			.skills p {
-				margin: 0 0 0.4rem 0;
+				margin: 0 0 .5rem 0;
 				padding: 0;
 			}
 			.skills .cat {
 				font-size: 14pt;
 				font-weight: bold;
 				color: #66B2FF;
-				margin-top: 0.4rem;
+				margin-top: 2rem;
 				text-decoration: underline;
 			}
 			.skills-divider {
@@ -302,20 +297,19 @@
 
 
 			<section class="skills" aria-labelledby="skills-heading">
-			<h3 id="skills-heading">Skills and Technical Stack</h3>
-			<div class="note">Analytics • Engineering • Administration</div>
+			<h3 id="skills-heading">Tech Stack</h3>
 
 			<div class="skills-divider" role="presentation"></div>
 
 			<div class="skills-grid">
 				<div>
 				<p class="cat">Data Storage Engines</p>
-				<p><span class="group">Relational DBs:</span> Microsoft SQL Server (On-prem and Azure), Oracle, MySQL, DB2, PostgreSQL</p>
+				<p><span class="group">Relational DBs:</span> Microsoft SQL Server (On-Prem and Azure), Oracle, MySQL, DB2, PostgreSQL</p>
 				<p><span class="group">Data Warehousing:</span> Snowflake, BigQuery, Databricks, MongoDB, SSAS, Data Marts, Operational Data Stores</p>
 
 				<p class="cat">BI, Reporting, & Analytics</p>
 				<p><span class="group">Reporting and Visualization Platforms:</span> Tableau, Power BI, Looker, SSRS, Python, R</p>
-				<p><span class="group">Reporting:</span> KPI Dashboards, Ad-hoc Analysis, Operational and Executive Reporting, Forecasting, Predictive Analytics</p>
+				<p><span class="group">Reporting:</span> KPI Dashboards, Ad-Hoc Analysis, Operational and Executive Reporting, Forecasting, Predictive Analytics</p>
 				<p><span class="group">Statistical Modeling:</span> Forecasting, Segmentation, A/B Testing, Predictive Modeling</p>
 
 				<p class="cat">ETL and Integration</p>
@@ -333,10 +327,10 @@
 				<p class="cat">Languages</p>
 				<p><span class="group">SQL & Analytics:</span> T-SQL, PL/SQL, PL/pgSQL, ANSI SQL, NoSQL, DAX, MDX</p>
 				<p><span class="group">Advanced SQL:</span> Stored Procedures, Triggers, UDFs, CTEs, Query Tuning, Indexing, Optimization</p>
-				<p><span class="group">Programming & Libraries:</span> Python (NumPy, Pandas, SQLAlchemy, Matplotlib, Jupyter), R (tidyverse, DBI, odbc), JavaScript</p>
+				<p><span class="group">Programming:</span> Python (Analysis, Visualization, ETL, Applications), R (Analysis, Visualization, ETL), JavaScript (Web & API Development)</p>
 
 				<p class="cat">DevOps & Production Support</p>
-				<p><span class="group">DevOps:</span> CI/CD, Version Control, Database Automation, Agile methodologies</p>
+				<p><span class="group">DevOps:</span> CI/CD, Version Control, Database Automation, Agile Methodologies</p>
 				<p><span class="group">Production Support:</span> Monitoring, Incident Response, Root Cause Analysis, Disaster Recovery</p>
 				</div>
 			</div>
