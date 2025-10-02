@@ -29,7 +29,7 @@
 				font-weight: bold;
 				color: #66B2FF;
 				text-align: center;
-				margin-top: .5em;
+				margin-top: 1em;
 				margin-bottom: .25em;
 			}
 			a {
@@ -69,7 +69,8 @@
 				color: #66B2FF;
 				text-decoration: underline;
 				display: inline-block;
-				transition: transform 0.25s ease, color 0.25s ease;
+				transition: transform 0.3s ease, color 0.3s ease;
+				transform-origin: bottom left;
 				will-change: transform, color;
 			}
 			.entry-title:hover {
@@ -92,7 +93,7 @@
 				background-color: rgba(0, 0, 0, 0.25);
 				border-radius: 12px;
 				padding: 1rem 1.25rem;
-				margin-top: 5rem;
+				margin-top: 3rem;
 				margin-bottom: 2em;
 				box-shadow: 8px 8px rgba(0, 0, 0, 0.5);
 				color: white;
@@ -123,11 +124,25 @@
 				margin: 0 0 .5rem 0;
 				padding: 0;
 			}
-			.skills .cat {
+			.skills .cat0 {
+				font-size: 14pt;
+				font-weight: bold;
+				color: #66B2FF;
+				margin-top: 10px;
+				text-decoration: underline;
+			}
+			.skills .cat1 {
 				font-size: 14pt;
 				font-weight: bold;
 				color: #66B2FF;
 				margin-top: 2rem;
+				text-decoration: underline;
+			}
+			.skills .cat2 {
+				font-size: 14pt;
+				font-weight: bold;
+				color: #66B2FF;
+				margin-top: 1.7rem;
 				text-decoration: underline;
 			}
 			.skills-divider {
@@ -143,6 +158,7 @@
 			.contact {
 				font-family: Calibri Light, sans-serif;
 				font-weight: normal;
+				margin-top: 4rem;
 			}
 			.contact a {
 				font-family: Calibri Light, sans-serif;
@@ -172,6 +188,10 @@
 
 			<h2>Technical Portfolio</h2>
 
+			<p style="margin-top: 2rem;"></p>
+			<hr width="95%" size="1" color="#7DFF78">
+			<p style="margin-top: 2rem;"></p>
+
 			<div>
 				<p>My technical journey has come a long way since my humble roots of building reports in Excel.</p>
 				<p>
@@ -197,7 +217,8 @@
 				</p>
 			</div>
 
-			<br>
+			<p style="margin-top: 3rem;"></p>
+			<hr width="95%" size="1" color="#7DFF78">
 
 			<h2>Selected Projects</h2>
 
@@ -279,7 +300,8 @@
 				<p>He'll never lose his documentation on canning squirrels and proper roadkill preparation again.</p>
 			</div>
 
-			<br>
+			<p style="margin-top: 3rem;"></p>
+			<hr width="95%" size="1" color="#7DFF78">
 
 			<h2>Recognition</h2>
 
@@ -295,46 +317,47 @@
 				<div class="clickinfo">Click the title for the full text of the award ceremony speech.</div>
 			</div>
 
+			<p style="margin-top: 3rem;"></p>
+			<hr width="95%" size="1" color="#7DFF78">
 
 			<section class="skills" aria-labelledby="skills-heading">
-			<h3 id="skills-heading">Tech Stack</h3>
+				<h3 id="skills-heading">Tech Stack</h3>
 
-			<div class="skills-divider" role="presentation"></div>
+				<div class="skills-divider" role="presentation"></div>
 
-			<div class="skills-grid">
-				<div>
-				<p class="cat">Data Storage Engines</p>
-				<p><span class="group">Relational DBs:</span> Microsoft SQL Server (On-Prem and Azure), Oracle, MySQL, DB2, PostgreSQL</p>
-				<p><span class="group">Data Warehousing:</span> Snowflake, BigQuery, Databricks, MongoDB, SSAS, Data Marts, Operational Data Stores</p>
+				<div class="skills-grid">
+					<div>
+						<p class="cat0">BI, Reporting, & Analytics</p>
+						<p><span class="group">Analytics, Reporting, and Visualization: </span>Tableau, Power BI, Looker, SSRS, Python, JavaScript, R</p>
+						<p><span class="group">Reporting & Statistical Modeling: </span>KPI Dashboards, Ad-Hoc Analysis, Operational and Executive Reporting, Forecasting, Predictive Analytics, A/B Testing, Segmentation</p>
 
-				<p class="cat">BI, Reporting, & Analytics</p>
-				<p><span class="group">Reporting and Visualization Platforms:</span> Tableau, Power BI, Looker, SSRS, Python, JavaScript, R</p>
-				<p><span class="group">Reporting:</span> KPI Dashboards, Ad-Hoc Analysis, Operational and Executive Reporting, Forecasting, Predictive Analytics</p>
-				<p><span class="group">Statistical Modeling:</span> Forecasting, A/B Testing, Segmentation, Predictive Modeling</p>
+						<p class="cat1">ETL and Integration</p>
+						<p><span class="group">ETL Tools: </span>SSIS, Azure Data Factory, Databricks, dbt, Python, R</p>
+						<p><span class="group">ETL Practices: </span>Pipeline Development, Migration, Data Wrangling, Cleansing, Validation, QA Testing, REST API Integration</p>
 
-				<p class="cat">ETL and Integration</p>
-				<p><span class="group">ETL Tools:</span> SSIS, Azure Data Factory, Databricks, dbt, Python, R</p>
-				<p><span class="group">ETL Practices:</span> Pipeline Development, Migration, Data Wrangling, Cleansing, Validation, QA Testing</p>
-				<p><span class="group">API Integration:</span> API Design and Consumption</p>
+						<p class="cat1">DevOps & Production Support</p>
+						<p><span class="group">DevOps: </span>CI/CD, Version Control, Git, Database Automation, Agile Methodologies</p>
+						<p><span class="group">Infrastructure: </span>Database Infrastructure Design, Capacity Planning</p>
+						<p><span class="group">Production Support: </span>Monitoring, Incident Response, Root Cause Analysis, Disaster Recovery, Performance Tuning, Windows Server Administration</p>
+					</div>
+
+					<div>
+						<p class="cat0">Languages</p>
+						<p><span class="group">SQL & Analytics: </span>T-SQL, PL/SQL, PL/pgSQL, ANSI SQL, NoSQL, DAX, MDX</p>
+						<p><span class="group">Advanced SQL: </span>Stored Procedures, Triggers, UDFs, CTEs, Query Tuning, Indexing, Optimization</p>
+						<p><span class="group">Programming: </span>Python, R, JavaScript (Web and API Development)</p>
+
+						<p class="cat2">Data Storage Engines</p>
+						<p><span class="group">Relational DBs: </span>Microsoft SQL Server (On-Prem and Azure), Oracle, MySQL, DB2, PostgreSQL</p>
+						<p><span class="group">Data Warehousing: </span>Snowflake, BigQuery, Databricks, MongoDB, SSAS, Data Marts, Operational Data Stores</p>
+
+						<p class="cat2">Data Modeling, Governance & Security</p>
+						<p><span class="group">Data Architecture: </span>Schema Design, Dimensional Modeling (Star, Snowflake), Normalization and Denormalization</p>
+						<p><span class="group">Governance & Management: </span>Master Data Management, Data Integrity, Auditing, Compliance</p>
+						<p><span class="group">Data Security: </span>User and Role-Based Access Controls, Encryption</p>
+					</div>
 				</div>
-
-				<div>
-				<p class="cat">Data Modeling, Governance & Security</p>
-				<p><span class="group">Data Architecture:</span> Dimensional Modeling, Schema Design, Data Models, Indexing</p>
-				<p><span class="group">Governance & Management:</span> Master Data Management, Data Integrity, Compliance</p>
-				<p><span class="group">Data Security:</span> Encryption, Access Controls, Audit Frameworks</p>
-
-				<p class="cat">Languages</p>
-				<p><span class="group">SQL & Analytics:</span> T-SQL, PL/SQL, PL/pgSQL, ANSI SQL, NoSQL, DAX, MDX</p>
-				<p><span class="group">Advanced SQL:</span> Stored Procedures, Triggers, UDFs, CTEs, Query Tuning, Indexing, Optimization</p>
-				<p><span class="group">Programming:</span> Python (Analysis, Visualization, ETL, Applications), R (Analysis, Visualization, ETL), JavaScript (Web & API Development)</p>
-
-				<p class="cat">DevOps & Production Support</p>
-				<p><span class="group">DevOps:</span> CI/CD, Version Control, Database Automation, Agile Methodologies</p>
-				<p><span class="group">Production Support:</span> Monitoring, Incident Response, Root Cause Analysis, Disaster Recovery</p>
-				</div>
-			</div>
-			<div class="skills-divider" role="presentation"></div>
+				<div class="skills-divider" role="presentation"></div>
 			</section>
 
 			<div class="contact">
