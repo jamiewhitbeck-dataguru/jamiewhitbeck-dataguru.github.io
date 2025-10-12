@@ -546,8 +546,7 @@
 			// Animate counters
 			function animateCounter(element) {
 				const target = parseFloat(element.getAttribute('data-target'));
-				const duration = 2000;
-				const step = target / (duration / 16);
+				const step = target / 125;
 				let current = 0;
 				
 				const isDecimal = target % 1 !== 0;
@@ -575,7 +574,7 @@
 					document.querySelectorAll('.counter').forEach(counter => {
 						animateCounter(counter);
 					});
-				}, 300);
+				}, 360);
 			});
 
 			// Update last modified date
