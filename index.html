@@ -11,7 +11,7 @@
 				color: white;
 				line-height: 1.25;
 				padding: 0;
-				max-width: 800px;
+				max-width: 1000px;
 				margin: auto;
 			}
 			h1 {
@@ -69,21 +69,20 @@
 				color: #66B2FF;
 				text-decoration: none;
 				display: inline-block;
-				transition: transform 0.3s ease, color 0.3s ease;
+				transition: transform 0.35s ease, color 0.35s ease;
 				transform-origin: bottom left;
 				will-change: transform, color;
 				margin-top: .5rem;
 			}
 			.entry-title:hover {
 				color: #7DFF78;
-				transform: scale(1.05);
+				transform: scale(1.1);
 				text-decoration: none;
 			}
 			.content {
 				font-family: Calibri Light, sans-serif;
 				background-color: rgba(0, 0, 0, 0.65);
-				padding: 1.5rem;
-				max-width: 1000px;
+				padding: 2rem;
 				border-radius: 16px;
 				box-shadow: 15px 15px rgba(0, 0, 0, 0.75);
 			}
@@ -91,6 +90,9 @@
 				margin-bottom: 2rem;
 			}
 			.skills {
+				max-width: 750px;
+				margin-left: auto;
+				margin-right: auto;
 				background-color: rgba(0, 0, 0, 0.25);
 				border-radius: 12px;
 				padding: 1rem 1.25rem;
@@ -115,7 +117,7 @@
 				gap: 0.5rem 1.25rem;
 			}
 			/* two-column on wider screens */
-			@media (min-width: 760px) {
+			@media (min-width: 840px) {
 				.skills-grid {
 					grid-template-columns: 1fr 1fr;
 					gap: .5rem 1.75rem;
@@ -175,23 +177,182 @@
 				font-style: italic;
 				margin-top: 1em;
 			}
+			.hero-top {
+				display: flex;
+				align-items: center;
+				gap: 2rem;
+				margin-bottom: 2.5rem;
+			}
+			.hero-photo {
+				flex-shrink: 1;
+			}
+			.hero-photo img {
+				width: 130px;
+				height: 130px;
+				border-radius: 50%;
+				box-shadow: 5px 5px 15px rgba(125, 255, 120, 0.25);
+			}
+			.hero-text {
+				flex-grow: 1;
+			}
+			.hero-name {
+				font-size: 40pt;
+				font-weight: bold;
+				color: #7DFF78;
+				margin: 0 0 0.25rem 0;
+				line-height: 1;
+			}
+			.hero-titles {
+				font-size: 14pt;
+				color: #66B2FF;
+				margin: 0 6rem;
+				line-height: 1.4;
+				text-align: center;
+			}
+			.metrics-container {
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: center;
+				gap: .5rem;
+			}
+			.metric {
+				flex: 0 0 auto;
+				width: 130px;
+				text-align: center;
+				padding: .5rem;
+				background-color: rgba(0, 0, 0, 0.3);
+				border-radius: 18px;
+				border: 2px solid rgba(125, 255, 120, 0.25);
+				transition: all 0.3s ease;
+			}
+			.metric:hover {
+				border-color: rgb(125, 255, 120);
+				transform: translateY(-3px);
+				box-shadow: 0 5px 15px rgba(125, 255, 120, 0.5);
+			}
+			.metric-value {
+				font-size: 18pt;
+				font-weight: bold;
+				color: #7DFF78;
+				margin: 0;
+				line-height: 1;
+			}
+			.metric-label {
+				font-size: 11pt;
+				color: #66B2FF;
+				margin: .5rem 0 0 0;
+				line-height: 1.1;
+			}
+			.metric-sublabel {
+				font-size: 10pt;
+				color: #87CDFF;
+				margin: 0.15rem 0 0 0;
+			}
+			@media (max-width: 600px) {
+				.hero-top {
+					flex-direction: column;
+					text-align: center;
+				}
+				.hero-name {
+					font-size: 24pt;
+				}
+				.hero-titles {
+					font-size: 12pt;
+				}
+				.hero-photo img {
+					width: 100px;
+					height: 100px;
+					border-radius: 50%;
+					box-shadow: 5px 5px 10px rgba(125, 255, 120, 0.25);
+					margin-bottom: -1rem;
+				}
+				.metric {
+					flex: 0 0 auto;
+					width: 100px;
+					text-align: center;
+					padding: .25rem;
+					background-color: rgba(0, 0, 0, 0.3);
+					border-radius: 10px;
+					border: 2px solid rgba(125, 255, 120, 0.25);
+					transition: all 0.3s ease;
+				}
+				.metric-value {
+					font-size: 13pt;
+					font-weight: bold;
+					color: #7DFF78;
+					margin: 0;
+					line-height: 1;
+				}
+				.metric-label {
+					font-size: 8pt;
+					color: #66B2FF;
+					margin: .25rem 0 0 0;
+					line-height: 1.1;
+				}
+				.metric-sublabel {
+					font-size: 7pt;
+					color: #87CDFF;
+					margin: 0.15rem 0 0 0;
+				}
+			}
 		</style>
 	</head>
 
 	<body>
 		<div class="background"></div>
+
 		<div class="content">
-			<div style="text-align: center;">
-				<img src="https://raw.githubusercontent.com/jamiewhitbeck-dataguru/jamiewhitbeck-dataguru.github.io/main/media/Jamie.jpg" alt="Jamie Whitbeck" style="width: 110px; height: auto; border-radius: 50%; box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);" />
+
+			<div class="hero-top">
+				<div class="hero-photo">
+					<img src="https://raw.githubusercontent.com/jamiewhitbeck-dataguru/jamiewhitbeck-dataguru.github.io/main/media/Jamie.jpg" alt="Jamie Whitbeck">
+				</div>
+				<div class="hero-text">
+					<h1 class="hero-name">Jamie Whitbeck</h1>
+					<p class="hero-titles">Senior Analytics Engineer • DBA • Data Architect</p>
+				</div>
 			</div>
 
-			<h1>Jamie Whitbeck</h1>
+			<p style="margin-top: -1.25rem;"></p>
+			<hr width="100%" size="1" color="#7DFF78">
+			<p style="margin-bottom: 1rem;"></p>
 
-			<h2>Technical Portfolio</h2>
+			<div class="metrics-container">
+				<div class="metric">
+					<p class="metric-value">$<span class="counter" data-target="35000">0</span>K+</p>
+					<p class="metric-label">Infrastructure Savings</p>
+					<p class="metric-sublabel">initial investment</p>
+				</div>
+				<div class="metric">
+					<p class="metric-value">$<span class="counter" data-target="10000">0</span>K+</p>
+					<p class="metric-label">Annual Savings</p>
+					<p class="metric-sublabel">operational costs</p>
+				</div>
+				<div class="metric">
+					<p class="metric-value"><span class="counter" data-target="500">0</span>+</p>
+					<p class="metric-label">Databases Migrated</p>
+					<p class="metric-sublabel">in under 1 hour</p>
+				</div>
+				<div class="metric">
+					<p class="metric-value"><span class="counter" data-target="400">0</span>%</p>
+					<p class="metric-label">UX Improvement</p>
+					<p class="metric-sublabel">webapp responsiveness</p>
+				</div>
+				<div class="metric">
+					<p class="metric-value"><span class="counter" data-target="99.94">0</span>%</p>
+					<p class="metric-label">Query Optimization</p>
+					<p class="metric-sublabel">27s → 20ms</p>
+				</div>
+				<div class="metric">
+					<p class="metric-value">$<span class="counter" data-target="4">0</span>M</p>
+					<p class="metric-label">Error Discovered</p>
+					<p class="metric-sublabel">20+ year report flaw</p>
+				</div>
+			</div>
 
-			<p style="margin-top: 2rem;"></p>
-			<hr width="95%" size="1" color="#7DFF78">
-			<p style="margin-top: 2rem;"></p>
+			<p style="margin-top: 0rem;"></p>
+			<hr width="100%" size="1" color="#7DFF78">
+			<p style="margin-bottom: 3rem;"></p>
 
 			<div>
 				<p>My technical journey has come a long way since my humble roots of building reports in Excel.</p>
@@ -229,7 +390,7 @@
 			<div class="entry">
 				<a class="entry-title" href="https://raw.githubusercontent.com/jamiewhitbeck-dataguru/jamiewhitbeck-dataguru.github.io/main/docs/JamieWhitbeck_SaaSInfrastructureModernization.pdf" target="_blank">SaaS Infrastructure Modernization</a>
 				<p>
-					When all the “professionals” said only enterprise-grade SSDs were acceptable in transactional database 
+					When all the "professionals" said only enterprise-grade SSDs were acceptable in transactional database 
 					servers, I rejected the status quo, mitigated the risk, and built a server with consumer-grade SSDs.
 				</p>
 				<p>
@@ -261,7 +422,7 @@
 				<a class="entry-title" href="https://raw.githubusercontent.com/jamiewhitbeck-dataguru/jamiewhitbeck-dataguru.github.io/main/docs/JamieWhitbeck_SQL_CaseStudy_Encryption.pdf" target="_blank">User Data Encryption</a>
 				<p>
 					During a self-initiated security audit as DBA for a CMMS vendor serving 1,000+ tenant databases and thousands 
-					of on-premises clients, I discovered that user credential “encryption” was laughably inadequate. With government 
+					of on-premises clients, I discovered that user credential "encryption" was laughably inadequate. With government 
 					agencies, hospitals, and critical infrastructure organizations using our platform—many leveraging our GIS 
 					module for sensitive asset mapping—this represented a catastrophic vulnerability waiting to happen.
 				</p>
@@ -380,11 +541,47 @@
 
 			<div class="last-updated">Last updated: <span id="lastUpdated"></span></div>
 		</div>
+
+		<script>
+			// Animate counters
+			function animateCounter(element) {
+				const target = parseFloat(element.getAttribute('data-target'));
+				const duration = 2000;
+				const step = target / (duration / 16);
+				let current = 0;
+				
+				const isDecimal = target % 1 !== 0;
+				
+				const timer = setInterval(() => {
+					current += step;
+					if (current >= target) {
+						current = target;
+						clearInterval(timer);
+					}
+					
+					if (isDecimal) {
+						element.textContent = current.toFixed(2);
+					} else if (target >= 1000) {
+						element.textContent = Math.floor(current / 1000);
+					} else {
+						element.textContent = Math.floor(current);
+					}
+				}, 16);
+			}
+			
+			// Start animations after page load
+			window.addEventListener('load', () => {
+				setTimeout(() => {
+					document.querySelectorAll('.counter').forEach(counter => {
+						animateCounter(counter);
+					});
+				}, 300);
+			});
+
+			// Update last modified date
+			const lastModified = new Date(document.lastModified);
+			const options = { year: "numeric", month: "long", day: "numeric" };
+			document.getElementById("lastUpdated").textContent = lastModified.toLocaleDateString(undefined, options);
+		</script>
 	</body>
 </html>
-
-<script>
-	const lastModified = new Date(document.lastModified);
-	const options = { year: "numeric", month: "long", day: "numeric" };
-	document.getElementById("lastUpdated").textContent = lastModified.toLocaleDateString(undefined, options);
-</script>
