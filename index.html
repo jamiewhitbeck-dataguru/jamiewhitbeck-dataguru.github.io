@@ -2,9 +2,13 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
+
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Jamie Whitbeck – Professional Portfolio</title>
+
+		<title>Jamie Whitbeck – Technical Portfolio</title>
+
 		<style>
+
 			body {
 				font-family: Calibri, sans-serif;
 				font-size: 14pt;
@@ -14,6 +18,7 @@
 				max-width: 1000px;
 				margin: auto;
 			}
+
 			h1 {
 				font-family: Calibri, sans-serif;
 				font-size: 32pt;
@@ -23,6 +28,7 @@
 				margin-top: 0em;
 				margin-bottom: 0em;
 			}
+
 			h2 {
 				font-family: Calibri, sans-serif;
 				font-size: 23pt;
@@ -31,24 +37,23 @@
 				text-align: center;
 				margin-top: 1em;
 				margin-bottom: .25em;
-			}
+			}
 			a {
 				font-family: Calibri, sans-serif;
 				font-weight: bold;
 				font-size: 14pt;
 				color: white;
 				text-decoration: none;
-			}
-			a:hover {
+			}			a:hover {
 				text-decoration: underline;
-			}
+			}
 			.clickinfo {
 				color: #FAC87D;
 				font-size: 14pt;
 				font-weight: bold;
 				text-align: center;
 				margin-top: .5rem;
-			}
+			}
 			.background {
 				position: fixed;
 				top: 0;
@@ -62,7 +67,7 @@
 				background-position: center top;
 				background-size: cover;
 				opacity: 0.45;
-			}
+			}
 			.entry-title {
 				font-size: 18pt;
 				font-weight: normal;
@@ -73,22 +78,21 @@
 				transform-origin: bottom left;
 				will-change: transform, color;
 				margin-top: .5rem;
-			}
-			.entry-title:hover {
+			}			.entry-title:hover {
 				color: #7DFF78;
 				transform: scale(1.1);
 				text-decoration: none;
-			}
+			}
 			.content {
 				font-family: Calibri Light, sans-serif;
 				background-color: rgba(0, 0, 0, 0.65);
 				padding: 2rem;
 				border-radius: 16px;
 				box-shadow: 15px 15px rgba(0, 0, 0, 0.75);
-			}
+			}
 			.entry {
 				margin-bottom: 2rem;
-			}
+			}
 			.skills {
 				max-width: 750px;
 				margin-left: auto;
@@ -103,118 +107,115 @@
 				font-family: Calibri Light, sans-serif;
 				font-size: 13.5pt;
 				line-height: 1.35;
-			}
+			}
 			.skills h3 {
 				font-size: 18pt;
 				color: white;
 				margin: 0 0 0.5rem 0;
 				font-weight: bold;
 				text-align: center;
-			}
+			}
 			.skills-grid {
 				display: grid;
 				grid-template-columns: 1fr;
 				gap: 0.5rem 1.25rem;
-			}
-			/* two-column on wider screens */
+			}
 			@media (min-width: 840px) {
 				.skills-grid {
 					grid-template-columns: 1fr 1fr;
 					gap: .5rem 1.75rem;
- 				}
-			}
+ 				}			}
 			.skills p {
 				margin: 0 0 .5rem 0;
 				padding: 0;
-			}
+			}
 			.skills .cat0 {
 				font-size: 14pt;
 				font-weight: bold;
 				color: #66B2FF;
 				margin-top: 10px;
 				text-decoration: underline;
-			}
+			}
 			.skills .cat1 {
 				font-size: 14pt;
 				font-weight: bold;
 				color: #66B2FF;
 				margin-top: 2rem;
 				text-decoration: underline;
-			}
+			}
 			.skills .cat2 {
 				font-size: 14pt;
 				font-weight: bold;
 				color: #66B2FF;
 				margin-top: 1.7rem;
 				text-decoration: underline;
-			}
+			}
 			.skills-divider {
 				height: 1px;
 				background: rgba(255,255,255,.5);
 				margin-top: .5em;
 				margin-bottom: .5em;
-			}
+			}
 			.skills .group {
 				font-weight: bold;
 				color: #87CDFF;
-			}
+			}
 			.contact {
 				font-family: Calibri Light, sans-serif;
 				font-weight: normal;
 				margin-top: 3rem;
-			}
+			}
 			.contact a {
 				font-family: Calibri Light, sans-serif;
 				font-weight: normal;
 				text-decoration: underline;
 				color: #73B9FF;
-			}
-			.contact a:hover {
+			}			.contact a:hover {
 				color: #FFFF64;
-			}
+			}
 			.last-updated {
 				font-size: 11pt;
 				font-style: italic;
 				margin-top: 1em;
-			}
+			}
 			.hero-top {
 				display: flex;
 				align-items: center;
 				gap: 2rem;
 				margin-bottom: 2.5rem;
-			}
+			}
 			.hero-photo {
 				flex-shrink: 1;
-			}
+			}
 			.hero-photo img {
 				width: 130px;
 				height: 130px;
 				border-radius: 50%;
 				box-shadow: 5px 5px 15px rgba(125, 255, 120, 0.25);
-			}
+			}
 			.hero-text {
 				flex-grow: 1;
-			}
+			}
 			.hero-name {
 				font-size: 40pt;
 				font-weight: bold;
 				color: #7DFF78;
 				margin: 0 0 0.25rem 0;
 				line-height: 1;
-			}
+			}
 			.hero-titles {
 				font-size: 14pt;
 				color: #66B2FF;
 				margin: 0 6rem;
 				line-height: 1.4;
 				text-align: center;
-			}
+			}
 			.metrics-container {
 				display: flex;
 				flex-wrap: wrap;
 				justify-content: center;
 				gap: .5rem;
-			}
+			}
 			.metric {
 				flex: 0 0 auto;
 				width: 130px;
@@ -224,77 +225,84 @@
 				border-radius: 18px;
 				border: 2px solid rgba(125, 255, 120, 0.25);
 				transition: all 0.3s ease;
-			}
-			.metric:hover {
+			}			.metric:hover {
 				border-color: rgb(125, 255, 120);
 				transform: translateY(-3px);
 				box-shadow: 0 5px 15px rgba(125, 255, 120, 0.5);
-			}
+			}
 			.metric-value {
 				font-size: 18pt;
 				font-weight: bold;
 				color: #7DFF78;
 				margin: 0;
 				line-height: 1;
-			}
+			}
 			.metric-label {
 				font-size: 11pt;
 				color: #66B2FF;
 				margin: .5rem 0 0 0;
 				line-height: 1.1;
-			}
+			}
 			.metric-sublabel {
 				font-size: 10pt;
 				color: #87CDFF;
 				margin: 0.15rem 0 0 0;
-			}
+			}
+			@media (max-width: 800px) {
+				.hero-top {
+					flex-direction: column;
+					text-align: center;
+				}
+				.hero-name {
+					font-size: 28pt;
+				}
+				.hero-photo img {
+					width: 115px;
+					height: 115px;
+					box-shadow: 5px 5px 10px rgba(125, 255, 120, 0.25);
+					margin-bottom: -1rem;
+				}
+				.metric {
+					padding: .2rem;
+				}
+				.metric-value {
+					font-size: 13.5pt;
+				}
+				.metric-label {
+					font-size: 8pt;
+				}
+				.metric-sublabel {
+					font-size: 7.5pt;
+				}			}
 			@media (max-width: 600px) {
 				.hero-top {
 					flex-direction: column;
 					text-align: center;
-				}
+				}
 				.hero-name {
 					font-size: 24pt;
-				}
+				}
 				.hero-titles {
 					font-size: 12pt;
-				}
+				}
 				.hero-photo img {
 					width: 100px;
 					height: 100px;
-					border-radius: 50%;
 					box-shadow: 5px 5px 10px rgba(125, 255, 120, 0.25);
 					margin-bottom: -1rem;
-				}
+				}
 				.metric {
-					flex: 0 0 auto;
-					width: 100px;
-					text-align: center;
-					padding: .25rem;
-					background-color: rgba(0, 0, 0, 0.3);
-					border-radius: 10px;
-					border: 2px solid rgba(125, 255, 120, 0.25);
-					transition: all 0.3s ease;
-				}
+					padding: .15rem;
+				}
 				.metric-value {
 					font-size: 13pt;
-					font-weight: bold;
-					color: #7DFF78;
-					margin: 0;
-					line-height: 1;
-				}
+				}
 				.metric-label {
-					font-size: 8pt;
-					color: #66B2FF;
-					margin: .25rem 0 0 0;
-					line-height: 1.1;
-				}
+					font-size: 7.5pt;
+				}
 				.metric-sublabel {
 					font-size: 7pt;
-					color: #87CDFF;
-					margin: 0.15rem 0 0 0;
-				}
-			}
+				}			}
 		</style>
 	</head>
 
@@ -535,7 +543,7 @@
 			<hr width="95%" size="1" color="#7DFF78">
 
 			<div class="contact">
-				<div>Job offers, compliments, or inquiries for additional details welcome at:</div>
+				<div>Job offers, compliments, or inquiries welcome at:</div>
 				<a href="mailto:jamiewhitbeck-dataguru@outlook.com">jamiewhitbeck-dataguru@outlook.com</a>
 			</div>
 
