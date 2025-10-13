@@ -31,9 +31,9 @@
 
 			h2 {
 				font-family: Calibri, sans-serif;
-				font-size: 23pt;
+				font-size: 24pt;
 				font-weight: bold;
-				color: #66B2FF;
+				color: #1E90FF;
 				text-align: center;
 				margin-top: 1em;
 				margin-bottom: .25em;
@@ -77,7 +77,7 @@
 				transition: transform 0.35s ease, color 0.35s ease;
 				transform-origin: bottom left;
 				will-change: transform, color;
-				margin-top: .5rem;
+				margin-top: 1rem;
 			}			.entry-title:hover {
 				color: #7DFF78;
 				transform: scale(1.1);
@@ -97,7 +97,7 @@
 				max-width: 750px;
 				margin-left: auto;
 				margin-right: auto;
-				background-color: rgba(0, 0, 0, 0.25);
+				background-color: rgba(0, 0, 0, 0.15);
 				border-radius: 12px;
 				padding: 1rem 1.25rem;
 				margin-top: 3rem;
@@ -129,32 +129,21 @@
 				margin: 0 0 .5rem 0;
 				padding: 0;
 			}
-			.skills .cat0 {
+			.skills .cat0, .skills .cat1, .skills .cat2 {
 				font-size: 14pt;
 				font-weight: bold;
-				color: #66B2FF;
-				margin-top: 10px;
+				color: #1E90FF;
 				text-decoration: underline;
+			}
+
+			.skills .cat0 {
+				margin-top: 10px;
 			}
 			.skills .cat1 {
-				font-size: 14pt;
-				font-weight: bold;
-				color: #66B2FF;
 				margin-top: 2rem;
-				text-decoration: underline;
 			}
 			.skills .cat2 {
-				font-size: 14pt;
-				font-weight: bold;
-				color: #66B2FF;
 				margin-top: 1.7rem;
-				text-decoration: underline;
-			}
-			.skills-divider {
-				height: 1px;
-				background: rgba(255,255,255,.5);
-				margin-top: .5em;
-				margin-bottom: .5em;
 			}
 			.skills .group {
 				font-weight: bold;
@@ -163,7 +152,7 @@
 			.contact {
 				font-family: Calibri Light, sans-serif;
 				font-weight: normal;
-				margin-top: 3rem;
+				margin-top: 5rem;
 			}
 			.contact a {
 				font-family: Calibri Light, sans-serif;
@@ -205,7 +194,7 @@
 			}
 			.hero-titles {
 				font-size: 14pt;
-				color: #66B2FF;
+				color: #1E90FF;
 				margin: 0 6rem;
 				line-height: 1.4;
 				text-align: center;
@@ -311,6 +300,21 @@
 				.metric-sublabel {
 					font-size: 7pt;
 				}			}
+			.line-long {
+				border-width: 3px;
+				border-color: #1E90FF;
+			}
+
+			.line-short {
+				border-width: 2px;
+				width: 65%;
+				border-color: #1E90FF;
+			}
+
+			.line-skills {
+				border-color: #1E90FF;
+			}
+
 		</style>
 	</head>
 
@@ -330,7 +334,7 @@
 			</div>
 
 			<p style="margin-top: -1.25rem;"></p>
-			<hr width="100%" size="1" color="#7DFF78">
+			<hr class="line-long">
 			<p style="margin-bottom: 1rem;"></p>
 
 			<div class="metrics-container">
@@ -367,7 +371,7 @@
 			</div>
 
 			<p style="margin-top: 0rem;"></p>
-			<hr width="100%" size="1" color="#7DFF78">
+			<hr class="line-long">
 			<p style="margin-bottom: 3rem;"></p>
 
 			<div>
@@ -396,11 +400,11 @@
 			</div>
 
 			<p style="margin-top: 3rem;"></p>
-			<hr width="95%" size="1" color="#7DFF78">
+			<hr class="line-long">
 
 			<h2>Selected Projects</h2>
 
-			<div class="clickinfo">Click any title to access full technical documentation.</div>
+			<div class="clickinfo">Click any title to access full technical documentation</div>
 			<br>
 
 			<div class="entry">
@@ -422,6 +426,8 @@
 				</p>
 			</div>
 
+			<hr class="line-short">
+
 			<div class="entry">
 				<a class="entry-title" href="https://raw.githubusercontent.com/jamiewhitbeck-dataguru/jamiewhitbeck-dataguru.github.io/main/docs/JamieWhitbeck_SaaSDatabaseMigrationTool.pdf" target="_blank">Scripted SaaS Database Migration</a>
 				<p>While most companies endure all-nighters and prayer circles for SQL migrations, I automated the entire process.</p>
@@ -433,6 +439,8 @@
 					while providing comprehensive logging.
 				</p>
 			</div>
+
+			<hr class="line-short">
 
 			<div class="entry">
 				<a class="entry-title" href="https://raw.githubusercontent.com/jamiewhitbeck-dataguru/jamiewhitbeck-dataguru.github.io/main/docs/JamieWhitbeck_SQL_CaseStudy_Encryption.pdf" target="_blank">User Data Encryption</a>
@@ -448,17 +456,23 @@
 				</p>
 			</div>
 
+			<hr class="line-short">
+
 			<div class="entry">
 				<a class="entry-title" href="https://raw.githubusercontent.com/jamiewhitbeck-dataguru/jamiewhitbeck-dataguru.github.io/main/docs/JamieWhitbeck_MFAnalysis_BackorderReport.pdf" target="_blank">How One Report Rewrite Uncovered a $4M Error</a>
 				<p>What started as a routine report migration from Excel to SSRS became a $4M discovery. During the rewrite, I uncovered a critical calculation flaw that had been systematically underreporting delayed shipments for two decades.</p>
 				<p>After proving the discrepancy across multiple systems, my analysis led to a multi-department effort that ultimately reduced backorders by approximately 50% ($7M) and improved customer satisfaction.</p>
 			</div>
 
+			<hr class="line-short">
+
 			<div class="entry">
 				<a class="entry-title" href="https://raw.githubusercontent.com/jamiewhitbeck-dataguru/jamiewhitbeck-dataguru.github.io/main/docs/JamieWhitbeck_MFAnalysis_OverstockReport.pdf" target="_blank">Transforming Overstock Reporting for Smarter Inventory Decisions</a>
 				<p>When a new WMS implementation and masterpack ordering changes created $5M+ in phantom overstock, I reengineered the legacy Overstock Report to account for seasonal demand patterns, masterpack quantities, and cross-system parameter misalignments.</p>
 				<p>The result was a strategic tool that empowered planners to distinguish real inventory problems from system artifacts and shift from firefighting to optimization.</p>
 			</div>
+
+			<hr class="line-short">
 
 			<div class="entry">
 				<a class="entry-title" href="https://raw.githubusercontent.com/jamiewhitbeck-dataguru/jamiewhitbeck-dataguru.github.io/main/docs/JamieWhitbeck_InfrastructureReporting.pdf" target="_blank">Reporting and Visualization Samples (Public Infrastructure)</a>
@@ -467,17 +481,23 @@
 				<p>These aren't theoretical exercises. They're the kind of reports that help infrastructure managers prevent catastrophic failures, optimize capital budgets, and keep critical systems running.</p>
 			</div>
 
+			<hr class="line-short">
+
 			<div class="entry">
 				<a class="entry-title" href="https://raw.githubusercontent.com/jamiewhitbeck-dataguru/jamiewhitbeck-dataguru.github.io/main/docs/JamieWhitbeck_ReportingEvolution.pdf" target="_blank">Evolution of Enterprise Inventory and Merchandising Reporting</a>
 				<p>From breaking CPUs with Excel files to building enterprise ETL and reporting systems. How I transformed a retailer's reporting infrastructure with millions of rows of data across multiple business systems.</p>
 				<p>A case study in real iterative innovation and scalable architecture design.</p>
 			</div>
 
+			<hr class="line-short">
+
 			<div class="entry">
 				<a class="entry-title" href="https://raw.githubusercontent.com/jamiewhitbeck-dataguru/jamiewhitbeck-dataguru.github.io/main/docs/JamieWhitbeck_SQL_CaseStudy_ListPagination.pdf" target="_blank">Mobile Application List Pagination Procedure</a>
 				<p>While supporting mobile CMMS development as Lead SQL Developer, I was asked to optimize a stored procedure for paginating item lists. With 27-second execution times and plans to replicate the procedure across 300+ modules, I saw both immediate performance issues and looming development nightmares.</p>
 				<p>I designed a single, dynamic, parameterized procedure that eliminated the redundancy and reduced execution times to under 20 milliseconds—a 99.94% performance improvement.</p>
 			</div>
+
+			<hr class="line-short">
 
 			<div class="entry">
 				<a class="entry-title" href="https://raw.githubusercontent.com/jamiewhitbeck-dataguru/jamiewhitbeck-dataguru.github.io/main/docs/JamieWhitbeck_Python_CaseStudy_DocumentStore.pdf" target="_blank">Document Storage Application</a>
@@ -486,11 +506,11 @@
 			</div>
 
 			<p style="margin-top: 3rem;"></p>
-			<hr width="95%" size="1" color="#7DFF78">
+			<hr class="line-long">
 
 			<h2>Recognition</h2>
 
-			<div class="clickinfo">Click the title for the full text of the award ceremony speech.</div>
+			<div class="clickinfo">Click the title for the full text of the award ceremony speech</div>
 			<br>
 
 			<div class="entry">
@@ -505,12 +525,14 @@
 			</div>
 
 			<p style="margin-top: 3rem;"></p>
-			<hr width="95%" size="1" color="#7DFF78">
+			<hr class="line-long">
 
 			<section class="skills" aria-labelledby="skills-heading">
 				<h3 id="skills-heading">Tech Stack</h3>
 
-				<div class="skills-divider" role="presentation"></div>
+<!--				<div class="skills-divider" role="presentation"></div>-->
+
+				<hr class="line-skills">
 
 				<div class="skills-grid">
 					<div>
@@ -544,11 +566,12 @@
 						<p><span class="group">Data Security: </span>User and Role-Based Access Controls, Encryption</p>
 					</div>
 				</div>
-				<div class="skills-divider" role="presentation"></div>
-			</section>
+				
+				<!--<div class="skills-divider" role="presentation"></div>-->
 
-			<p style="margin-top: 4rem;"></p>
-			<hr width="95%" size="1" color="#7DFF78">
+				<hr class="line-skills">
+
+			</section>
 
 			<div class="contact">
 				<div>Job offers, compliments, or inquiries welcome at:</div>
