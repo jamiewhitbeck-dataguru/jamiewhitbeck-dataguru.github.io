@@ -41,7 +41,7 @@ WITH CTE_AllRecords AS (
     FROM ' + @TableName + ' WITH(NoLock) '
 
 -- If there are other tables being joined, add the JOIN statement to the string
--- This first join operates only on primary keys and does not returning data fields yet, optimizing performance
+-- This first join operates only on primary keys and does not return data fields yet, optimizing performance
 IF IsNull(@Join,'') != ''
   BEGIN
     SET @SqlString = @SqlString + ' ' + @Join
@@ -119,7 +119,7 @@ GO
 
 /*
 Sample execution call:
-EXEC GetPagedData 'Asset', 'AssetPK', 1, 20, 'AssetName ASC', 'RepairCenter.RepairCenterPK = 1', 'Asset.AssetID, Asset.AssetName', 'INNER JOIN RepairCenter ON Asset.RepairCenterPK = RepairCenter.RepairCenterPK', 0
+EXEC GetPagedData 'Asset', 'AssetPK', 3, 20, 'AssetName ASC', 'RepairCenter.RepairCenterPK = 1', 'Asset.AssetID, Asset.AssetName', 'INNER JOIN RepairCenter ON Asset.RepairCenterPK = RepairCenter.RepairCenterPK', 0
 -- Page 3, return Asset ID and AssetName for assets assigned to the primary repair center, ordered by AssetName, 20 items/page
 
 
